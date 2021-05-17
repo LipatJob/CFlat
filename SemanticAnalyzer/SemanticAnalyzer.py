@@ -3,4 +3,5 @@ from Lib.Token import Token
 
 class SemanticAnalyzer:
     def run(self, root: Node):
-        return []
+        # WRITE CODE FOR SEMANTIC ANALYZER HERE
+        pass

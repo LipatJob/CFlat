@@ -4,4 +4,5 @@ from typing import List
 
 class SyntaxAnalyzer:
     def run(self, tokens: List[Token]) -> 'Node':
-        return []
+        # WRITE CODE FOR SYNTAX ANALYZER HERE
+        return Node()

@@ -7,9 +7,9 @@ def __main__():
     parser = SyntaxAnalyzer()
     semanticAnalyzer = SemanticAnalyzer()
 
-    fileName = ""
+    file_name = ""
 
-    tokens = lexer.run(fileName)
+    tokens = lexer.run(file_name)
     tree = parser.run(tokens)
     semanticAnalyzer.run(tree)
 
