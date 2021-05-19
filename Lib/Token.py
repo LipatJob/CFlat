@@ -66,50 +66,15 @@ class Types:
     symbols_arithmetic_operator = "symbols_arithmetic_operator"
     symbols_relational_operator = "symbols_relational_operator"
 
-    precedence = {
-        "negate": 6,
-        "not": 6,
-        "*": 5,
-        "/": 5,
-        "+": 4,
-        "-": 4,
-        ">": 3,
-        "<": 3,
-        ">=": 3,
-        "<=": 3,
-        "==": 2,
-        "!=": 2,
-        "and": 1,
-        "or": 0,
-    }
-
-    associativity = {
-        "+": "LEFT",
-        "-":  "LEFT",
-        "*":  "LEFT",
-        "/":  "LEFT",
-    }
-
-    @classmethod
-    def get_precedence(cls, operator):
-        return cls.precedence[operator]
-
-    @classmethod
-    def get_associativity(cls, operator):
-        return cls.associativity[operator]
-
-    @classmethod
-    def is_binary_operator(cls, operator):
-        return operator in cls.precedence
-
 class TokenType:
-    INT = "INT"
-    STRING = "STRING"
-    BOOL = "BOOL"
+    INT_DATA_TYPE = "INT"
+    STRING_DATA_TYPE = "STRING"
+    BOOL_DATA_TYPE = "BOOL"
     IDENTIFIER = "IDENTIFIER"
     INT_LITERAL = "INT_LITERAL"
     STRING_LITERAL = "STRING_LITERAL"
     BOOL_LITERAL = "BOOL_LITERAL"
+    ASSIGN = "ASSIGN"
 
     DOUBLE_SLASH = "DOUBLE_SLASH"
     SLASH_STAR = "SLASH_STAR"
@@ -122,7 +87,6 @@ class TokenType:
     SEMI_COLON = "SEMI_COLON"
     OPEN_CURLY_BRACES = "OPEN_CURLY_BRACES"
     CLOSE_CURLY_BRACES = "CLOSE_CURLY_BRACES"
-
 
     IF = "IF"
     ELIF = "ELIF"

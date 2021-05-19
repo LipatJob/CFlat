@@ -1,5 +1,3 @@
-# WRITE TEST CODE HERE
-# CODE HERE WILL NOT BE PUSHED TO REPOSITORY
 from LexicalAnalyzer.LexicalAnalyzer import LexicalAnalyzer
 from Lib.Token import *
 
