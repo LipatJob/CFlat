@@ -1,0 +1,49 @@
+int c = 10;
+int b = 7;
+int a = c+b;
+print(a)
+
+int
+string 
+bool
+True
+False
+//mic drop tututuuttuuthn
+/*one shot
+two shot*/
+input
+print
+,
+(
+)
+;
+{
+}
+if 
+elif
+else
+void
+return
+while
+for
+and
+or
+not
++
+-
+*
+/
+ 
+lol
+10
+"wew magic"
+=
+==
+
+!=
+>
+<
+>=
+<=
+
+~

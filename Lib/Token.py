@@ -12,19 +12,45 @@ class Token:
 
 
 class Reserved:
-    keyword_datatype = ["int", "string", "bool"]
-    keyword_boolean_literal = ["True", "False"]
-    comments = ["//", "/*"]
-    keyword_inputoutput = ["input", "print"]
-    symbols_delimiters = [",", "(", ")", ";", "{", "}"]
-    keyword_conditional_statement = ["if", "elif", "else"]
-    keyword_function = ["void", "return"]
-    keyword_loops = ["while", "for"]
-    symbols_assignment_operator = ["="]
-    keyword_logical_operator = ["and", "or", "not"]
-    symbols_arithmetic_operator = ["+", "-", "*", "/"]
-    symbols_relational_operator = ["==", "!=", ">", "<", ">=", "<="]
-
+    reserved={
+        "int": "keyword_datatype",
+        "string": "keyword_datatype" ,
+        "bool": "keyword_datatype" ,
+        "True": "keyword_boolean_literal" ,
+        "False": "keyword_boolean_literal" ,
+        "//": "comments" ,
+        "/*": "comments" ,
+        "input": "keyword_inputoutput" ,
+        "print": "keyword_inputoutput" ,
+        ",": "symbols_delimiters" ,
+        "(": "symbols_delimiters" ,
+        ")": "symbols_delimiters" ,
+        ";": "symbols_delimiters" ,
+        "{": "symbols_delimiters" ,
+        "}": "symbols_delimiters" ,
+        "if": "keyword_conditional_statement" ,
+        "elif": "keyword_conditional_statement",
+        "else": "keyword_conditional_statement",
+        "void": "keyword_function" ,
+        "return": "keyword_function",
+        "def": "keyword_function",
+        "while": "keyword_loops" ,
+        "for": "keyword_loops" ,
+        "=": "symbols_assignment_operator",
+        "and": "keyword_logical_operator",
+        "or": "keyword_logical_operator" ,
+        "not": "keyword_logical_operator" ,
+        "+": "symbols_arithmetic_operator" ,
+        "-": "symbols_arithmetic_operator" ,
+        "*": "symbols_arithmetic_operator" ,
+        "/": "symbols_arithmetic_operator" ,
+        "==": "symbols_relational_operator",
+        "!=": "symbols_relational_operator",
+        ">": "symbols_relational_operator" ,
+        "<": "symbols_relational_operator" ,
+        ">=": "symbols_relational_operator",
+        "<=": "symbols_relational_operator"
+     }
 
 class Types:
     keyword_datatype = "keyword_datatype"
