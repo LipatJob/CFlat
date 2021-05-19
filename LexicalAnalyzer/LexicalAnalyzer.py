@@ -4,7 +4,7 @@ from typing import List
 list_tokens = []
 char_count = 1
 total_char_count = 1
-line_count = 0
+line_count = 1
 cur_token = None
 cur_ch = None
 buffer = []
