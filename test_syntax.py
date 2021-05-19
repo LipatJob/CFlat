@@ -3,12 +3,13 @@ from Lib.Token import Token
 
 
 tokens = [
+    Token("-", "-"),
     Token("literal", "1"),
     Token("+","+"),
     Token("literal", "1"),
     Token("*","*"),
     Token("literal", "1"),
-    Token("+","+"),
+    Token("-","-"),
     Token("literal", "1"),
     Token(";", ";"),
 ]
