@@ -5,3 +5,5 @@ class Node:
     def __init__(self, token :'Token', parameters : List['Node']):
         self.token = token
         self.parameters = parameters
+
+class Values

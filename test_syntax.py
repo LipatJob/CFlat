@@ -1,7 +1,6 @@
 from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
 from Lib.Token import Token
 
-
 tokens = [
     Token("-", "-"),
     Token("literal", "1"),
