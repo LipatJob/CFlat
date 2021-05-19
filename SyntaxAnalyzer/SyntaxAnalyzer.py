@@ -133,7 +133,28 @@ class SyntaxAnalyzer:
         self.expect("{")
         block = self.block()
         self.expect("}")
-        return Node("if", [condition, block])
+        optional = self.elif_statement()
+        return Node("if", [condition, block, optional])
+
+    def elif_statement(self):
+        if self.current().type == "elif":
+            self.expect("elif")
+            self.expect("(")
+            condition = self.expression()
+            self.expect(")")
+            self.expect("{")
+            block = self.block()
+            self.expect("}")
+            optional = self.elif_statement()
+            return Node("elif", [condition, block, optional])
+        elif self.current().type == "else":
+            self.expect("else")
+            self.expect("{")
+            block = self.block()
+            self.expect("}")
+            return Node("else", block)
+        return None
+
 
     def expression(self, precedence = 0):
         if self.current().type == ";":

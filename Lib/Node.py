@@ -6,4 +6,5 @@ class Node:
         self.token = token
         self.parameters = parameters
 
-class Values
+class Values:
+    pass
