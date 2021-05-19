@@ -2,16 +2,22 @@ from typing import List
 from Lib.Token import Token
 
 class Node:
-    def __init__(self, value, parameters : List['Node']):
+    def __init__(self, value, parameters : List['Node'], expression_type=None):
         self.value = value
         self.parameters = parameters
+        self.expression_type = None
+
+class ExpressionType:
+    INT = "INT"
+    STRING = "STRING"
+    BOOL = "BOOL"
 
 class NodeType:
     PROGRAM = "PROGRAM" # (BLOCK)
     BLOCK = "BLOCK"# (STATMENT)
     STATEMENT = "STATEMENT"
-    DECLARATION = "DECLARATION"
-    ASSIGNMENT = "ASSIGNMENT" # (DATE_TYPE, IDENTIFER, EXPRESSION)
+    DECLARATION = "DECLARATION" # (DATE_TYPE, IDENTIFER, EXPRESSION)
+    ASSIGNMENT = "ASSIGNMENT"
     PRINT = "PRINT"
     INPUT = "INPUT"
 
@@ -45,7 +51,6 @@ class NodeType:
 
     DOUBLE_EQUAL = "DOUBLE_EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
-    MORE_THAN = "MORE_THAN"
     LESS = "LESS"
     MORE = "MORE"
     LESS_EQUAL = "LESS_EQUAL"
