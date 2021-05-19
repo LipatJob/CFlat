@@ -252,3 +252,28 @@ class SyntaxAnalyzer:
                 print(current.token, end=" ")
                 for node in current.parameters:
                     self.print_tree(node)
+
+    def traverse_tree(self, current: Node):
+        if current == None: return
+
+        # check if literal or identifier
+
+        # traverse tree
+        for param in current.parameters:
+            self.traverse_tree(param)
+        
+        # evaluate
+        if current.type == "if statement":
+            if current.parameters[0].type != "boolean type":
+                raise_error()
+        
+        if current.type == "add":
+            if current.parameters[0].type != "int":
+                raise_error()
+
+        if current.type == "declaration":
+            # identifier
+            if current.parameters[1].value is already declared:
+                raise_error("identifier has already been ")
+
+

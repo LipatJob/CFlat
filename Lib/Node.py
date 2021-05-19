@@ -2,16 +2,16 @@ from typing import List
 from Lib.Token import Token
 
 class Node:
-    def __init__(self, token :'Token', parameters : List['Node']):
-        self.token = token
+    def __init__(self, value, parameters : List['Node']):
+        self.value = value
         self.parameters = parameters
 
 class NodeType:
-    PROGRAM = "PROGRAM"
-    BLOCK = "BLOCK"
+    PROGRAM = "PROGRAM" # (BLOCK)
+    BLOCK = "BLOCK"# (STATMENT)
     STATEMENT = "STATEMENT"
     DECLARATION = "DECLARATION"
-    ASSIGNMENT = "ASSIGNMENT"
+    ASSIGNMENT = "ASSIGNMENT" # (DATE_TYPE, IDENTIFER, EXPRESSION)
     PRINT = "PRINT"
     INPUT = "INPUT"
     FOR = "FOR"
