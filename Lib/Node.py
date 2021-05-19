@@ -38,11 +38,6 @@ class NodeType:
     OR = "OR"
     NOT = "NOT"
 
-    PLUS = "PLUS"
-    MINUS = "MINUS"
-    STAR = "STAR"
-    SLASH = "SLASH"
-
     DOUBLE_EQUAL = "DOUBLE_EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
     MORE_THAN = "MORE_THAN"
