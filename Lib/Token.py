@@ -11,21 +11,6 @@ class Token:
     column: int = 0  # How many characters are there before the start of the token
 
 
-class Reserved:
-    keyword_datatype = ["int", "string", "bool"]
-    keyword_boolean_literal = ["True", "False"]
-    comments = ["//", "/*"]
-    keyword_inputoutput = ["input", "print"]
-    symbols_delimiters = [",", "(", ")", ";", "{", "}"]
-    keyword_conditional_statement = ["if", "elif", "else"]
-    keyword_function = ["void", "return"]
-    keyword_loops = ["while", "for"]
-    symbols_assignment_operator = ["="]
-    keyword_logical_operator = ["and", "or", "not"]
-    symbols_arithmetic_operator = ["+", "-", "*", "/"]
-    symbols_relational_operator = ["==", "!=", ">", "<", ">=", "<="]
-
-
 class Types:
     precedence = {
         "negate": 6,
