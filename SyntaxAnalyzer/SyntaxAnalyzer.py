@@ -253,6 +253,7 @@ class SyntaxAnalyzer:
                 for node in current.parameters:
                     self.print_tree(node)
 
+    """
     def traverse_tree(self, current: Node):
         if current == None: return
 
@@ -275,5 +276,7 @@ class SyntaxAnalyzer:
             # identifier
             if current.parameters[1].value is already declared:
                 raise_error("identifier has already been ")
+
+    """
 
 
