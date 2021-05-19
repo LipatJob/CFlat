@@ -2,6 +2,7 @@ from Lib.Node import Node
 from Lib.Token import *
 from typing import List
 from Lib.ErrorHandler import * 
+from pprint import pprint
 
 def raise_syntax_error(expected, actual):
     raise_error(f"Syntax Error: expected {expected} got {actual}")
@@ -10,7 +11,7 @@ class SyntaxAnalyzer:
     def run(self, tokens: List[Token]) -> 'Node':
         self.tokens = tokens
         self.pointer = 0
-        return Node()
+        return self.expression(0)
     
     def current(self):
         return self.tokens[self.pointer]
@@ -36,13 +37,13 @@ class SyntaxAnalyzer:
         return Node("block", [self.statement(), self.block()])
     
     def statement(self):
-        if self.current().type == Types.keyword_datatype:
+        if self.current().type == "keyword":
             return self.declaration()
-        elif self.current().type == Types.keyword_for_loop:
+        elif self.current().type == "for":
             return self.for_loop()
-        elif self.current().type == Types.keyword_while_loop:
+        elif self.current().type == "while":
             return self.while_loop()
-        elif self.current.type == Types.keyword_conditional_statement:
+        elif self.current.type == "if":
             return self.if_statement()
         return Node("statement", [self.expression()])
     
@@ -59,45 +60,53 @@ class SyntaxAnalyzer:
         # TODO elif and else
         return Node("if", [self.expression(), self.block()])
     
-    def expression(self, min_precedence):
-        left_hand_side = self.term()
+    def expression(self, precedence):
+        if self.current().type == ";": return None 
 
-        while self.is_binary_operator(current.type) and self.get_precedence(current.type) > min_precedence:
+        expression_tree = self.term()
+
+        while Types.is_binary_operator(self.current().type) and Types.get_precedence(self.current().type) >= precedence:
             current = self.current()
-            precedence = self.get_precedence(current.type)
-            associativity = self.get_associativity(self.type)
+            print(current)
 
-            next_min_precedence = precedence + 1 if associativity == 'LEFT' else precedence
+            self.next()
 
-            right_hand_side = self.expression(next_min_precedence)
+            next_precedence = Types.get_precedence(current.type)
+            if Types.get_associativity(current.type) != "RIGHT":
+                next_precedence += 1
 
-        return Node(None, [left_hand_side, right_hand_side])
-    
-    def is_binary_operator(self, operator):
-        return 0
-    
-    def get_precedence(self, operator):
-        return 0
+            
+            expression_tree = Node(current.type, [expression_tree, self.expression(next_precedence)])
 
-    def get_associativity(self, operator):
-        return 0
+        return expression_tree
     
     def term(self):
         current_token = self.current().type
-        if current_token  == Types.symbol_left_parenthesis:
-            return self.parenthesis_expression()
-        elif current_token == Types.identifier:
-            return Node("Identifier", [self.current])
-        elif current_token == Types.literal_integer:
-            return Node("literal", [self.current])
+        print(current_token)
+        node = None
+        if current_token  == "(":         
+            node = self.parenthesis_expression()
+        elif current_token == "identifier":
+            node = Node("identifier", [self.current()])
+            self.next()            
+        elif current_token == "literal":
+            node =  Node("literal", [self.current()])
+            self.next()            
         else:
             raise_syntax_error("", "")
+        return node
 
 
     def parenthesis_expression(self):
         return Node(None, [self.expression()])
     
-
-        
-    
-    
+    def print_tree(self, current:Node):
+        if current == None:
+            print(";\n")
+        else:
+            if current.token in {"literal", "identifier"}:
+                print(current.parameters[0].value)
+            else:
+                pprint(current.token)
+                for node in current.parameters:
+                    self.print_tree(node)

@@ -5,8 +5,10 @@ from dataclasses import dataclass
 class Token:
     type: str
     value: str
-    line: int  # In what line is the start of the token found
-    column: int  # How many characters are there before the start of the token
+
+    # Implement later
+    line: int = 0 # In what line is the start of the token found
+    column: int = 0# How many characters are there before the start of the token
 
 
 class Reserved:
@@ -23,6 +25,7 @@ class Reserved:
     symbols_arithmetic_operator = ["+", "-", "*", "/"]
     symbols_relational_operator = ["==", "!=", ">", "<", ">=", "<="]
 
+
 class Types:
     keyword_datatype = "keyword_datatype"
     keyword_boolean_literal = "keyword_boolean_literal"
@@ -36,8 +39,10 @@ class Types:
     keyword_logical_operator = "keyword_logical_operator"
     symbols_arithmetic_operator = "symbols_arithmetic_operator"
     symbols_relational_operator = "symbols_relational_operator"
+    
+    semi_colon = ";"
+    
     end_of_file = "end_of_file"
-
 
     keyword_for_loop = "for"
     keyword_while_loop = "while"
@@ -54,3 +59,30 @@ class Types:
     identifier = "identifier"
     literal_string = "literal_string"
     literal_integer = "literal_integer"
+
+    precedence = {
+        "+": 1,
+        "-": 1,
+        "*": 2,
+        "/": 2,
+    }
+
+    associativity = {
+        "+": "LEFT",
+        "-":  "LEFT",
+        "*":  "LEFT",
+        "/":  "LEFT",
+    }
+
+    @classmethod
+    def get_precedence(cls, operator):
+        return cls.precedence[operator]
+
+    @classmethod
+    def get_associativity(cls, operator):
+        return cls.associativity[operator]
+
+    @classmethod
+    def is_binary_operator(cls, operator):
+        return operator in cls.precedence
+
