@@ -101,3 +101,54 @@ class Types:
     @classmethod
     def is_binary_operator(cls, operator):
         return operator in cls.precedence
+
+class TokenType:
+    INT = "INT"
+    STRING = "STRING"
+    BOOL = "BOOL"
+    IDENTIFIER = "IDENTIFIER"
+    INT_LITERAL = "INT_LITERAL"
+    STRING_LITERAL = "STRING_LITERAL"
+    BOOL_LITERAL = "BOOL_LITERAL"
+
+    DOUBLE_SLASH = "DOUBLE_SLASH"
+    SLASH_STAR = "SLASH_STAR"
+    INPUT = "INPUT"
+    PRINT = "PRINT"
+    
+    COMMA = "COMMA"
+    OPEN_PARENTHESIS = "OPEN_PARENTHESIS"
+    CLOSE_PARENTHESIS = "CLOSE_PARENTHESIS"
+    SEMI_COLON = "SEMI_COLON"
+    OPEN_CURLY_BRACES = "OPEN_CURLY_BRACES"
+    CLOSE_CURLY_BRACES = "CLOSE_CURLY_BRACES"
+
+
+    IF = "IF"
+    ELIF = "ELIF"
+    ELSE = "ELSE"
+
+    WHILE = "WHILE"
+    FOR = "FOR"
+
+    VOID = "VOID"
+    RETURN = "RETURN"
+
+    EQUAL = "EQUAL"
+    AND = "AND"
+    OR = "OR"
+    NOT = "NOT"
+
+    PLUS = "PLUS"
+    MINUS = "MINUS"
+    STAR = "STAR"
+    SLASH = "SLASH"
+
+    DOUBLE_EQUAL = "DOUBLE_EQUAL"
+    NOT_EQUAL = "NOT_EQUAL"
+    MORE_THAN = "MORE_THAN"
+    LESS = "LESS"
+    MORE = "MORE"
+    LESS_EQUAL = "LESS_EQUAL"
+    MORE_EQUAL = "MORE_EQUAL"
+    END_OF_FILE = "END_OF_FILE"
