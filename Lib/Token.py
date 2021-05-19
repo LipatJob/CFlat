@@ -36,3 +36,21 @@ class Types:
     keyword_logical_operator = "keyword_logical_operator"
     symbols_arithmetic_operator = "symbols_arithmetic_operator"
     symbols_relational_operator = "symbols_relational_operator"
+    end_of_file = "end_of_file"
+
+
+    keyword_for_loop = "for"
+    keyword_while_loop = "while"
+
+    symbol_left_parenthesis = "symbol_left_parenthesis"
+    operator_plus = "operator_plus"
+    operator_minus = "-"
+    operator_slash = "/"
+    operator_star = "*"
+    operator_not = "not"
+    operator_and = "and"
+    operator_or = "or"
+
+    identifier = "identifier"
+    literal_string = "literal_string"
+    literal_integer = "literal_integer"
