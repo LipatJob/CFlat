@@ -23,7 +23,7 @@ class SemanticAnalyzer:
 
         # EXPRESSIONS 
         if root.value in {NT.ADD, NT.SUBTRACT, NT.MULTIPLY, NT.DIVIDE}:
-            if root.parameters[0].expression_type != ET.INT OR root.parameters[1].expression_type != ET.INT:
+            if root.parameters[0].expression_type != ET.INT or root.parameters[1].expression_type != ET.INT:
                 raise_type_error()
             else:
                 root.expression_type = ET.INT
@@ -37,14 +37,14 @@ class SemanticAnalyzer:
             
         # RELATIONAL OPERATORS
         if root.value in {NT.DOUBLE_EQUAL, NT.EQUAL, NT.NOT_EQUAL, NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
-            if root.parameters[0].expression_type != ET.INT OR root.parameters[1].expression_type != ET.INT:
+            if root.parameters[0].expression_type != ET.INT or root.parameters[1].expression_type != ET.INT:
                 raise_type_error()
             else:
                 root.expression_type = ET.INT
 
         # LOGICAL OPERATORS
         if root.value in {NT.AND, NT.OR, NT.NOT}:
-            if root.parameters[0].expression_type != ET.BOOL OR root.parameters[1].expression_type != ET.BOOL:
+            if root.parameters[0].expression_type != ET.BOOL or root.parameters[1].expression_type != ET.BOOL:
                 raise_type_error()
             else:
                 root.expression_type = ET.BOOL
