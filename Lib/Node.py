@@ -5,7 +5,7 @@ class Node:
     def __init__(self, value, parameters : List['Node'], expression_type=None):
         self.value = value
         self.parameters = parameters
-        self.expression_type = None
+        self.expression_type = expression_type
 
 class ExpressionType:
     INT = "INT"
@@ -14,7 +14,7 @@ class ExpressionType:
 
 class NodeType:
     PROGRAM = "PROGRAM" # (BLOCK)
-    BLOCK = "BLOCK"# (STATMENT)
+    BLOCK = "BLOCK" # (STATMENT)
     STATEMENT = "STATEMENT"
     DECLARATION = "DECLARATION" # (DATE_TYPE, IDENTIFER, EXPRESSION)
     ASSIGNMENT = "ASSIGNMENT"

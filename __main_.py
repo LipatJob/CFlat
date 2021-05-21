@@ -13,7 +13,7 @@ def __main__():
 
     tokens = lexer.run(file_name)
     tree = parser.run(tokens)
-    semanticAnalyzer.run(tree)
-    evaluator.run(tree)
+    symbol_table = semanticAnalyzer.run(tree)
+    evaluator.run(tree, symbol_table)
 
 __main__()

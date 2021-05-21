@@ -2,7 +2,6 @@ from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
 from Lib.Token import *
 from Lib.Token import TokenType as TT
 from Lib.Node import Node, NodeType as NT
-from Li
 
 tokens = [
     Token(TT.MINUS, "-"),
