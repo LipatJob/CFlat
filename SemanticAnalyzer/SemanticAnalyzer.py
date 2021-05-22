@@ -3,6 +3,9 @@ from Lib.Token import Token
 from Lib.ErrorHandler import *
 
 class SemanticAnalyzer:
+    SymbolTable = []
+    SymbolDictionary = dict()
+
     def run(self, root: Node):
 
         # Added traversal function code for type checking
@@ -10,16 +13,48 @@ class SemanticAnalyzer:
 
         if root == None: return
 
+        # Terminal expressions for leaf nodes
+        # If identifier, check key if it exists and data type in SymbolDictionary
+        # Otherwise, throw an error
         elif root.value in {NT.IDENTIFIER, NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL}:
             if root.value == NT.INT_LITERAL:
                 root.expression_type = ET.INT
-            if root.value == NT.STRING_LITERAL:
+            elif root.value == NT.STRING_LITERAL:
                 root.expression_type = ET.STRING
-            if root.value == NT.BOOL_LITERAL:
+            elif root.value == NT.BOOL_LITERAL:
                 root.expression_type = ET.BOOL
+            return
         
-        for x in root.parameters:
-            self.run(x)
+        # (Code block not yet final)
+        if root.value == NT.DECLARATION:
+            self.run(root.parameters[2])
+        else:
+            for x in root.parameters:
+                self.run(x)
+
+        # DECLARATION STATEMENT
+        # Enter code for storing variables
+        # Check if dictionary is empty
+        # If empty, store node values in dictionary
+        # If not empty, compare the value in the dictionary
+        if root.value == NT.DECLARATION:
+            if root.parameters[0] == NT.INT_DATA_TYPE and root.parameters[2].expression_type != ET.INT:
+                raise_type_error()
+            elif root.parameters[0] == NT.STRING_DATA_TYPE and root.parameters[2].expression_type != ET.STRING:
+                raise_type_error()
+            elif root.parameters[0] == NT.BOOL_DATA_TYPE and root.parameters[2].expression_type != ET.BOOL:
+                raise_type_error()
+            else:
+                if len(self.symbolTable) == 0:
+                    # Add values into SymbolTable
+                    self.SymbolTable.__add__(root.parameters[0])
+                else:
+                    # Find current identifier value in SymbolTable
+                    if root.parameters[0] in self.SymbolTable:
+                        raise_identifier_error()
+                    elif root.parameters[1] not in self.SymbolTable:
+                        raise_undeclaredVariable_error(root.parameters[1])
+            return
 
         # EXPRESSIONS 
         if root.value in {NT.ADD, NT.SUBTRACT, NT.MULTIPLY, NT.DIVIDE}:
@@ -29,46 +64,37 @@ class SemanticAnalyzer:
                 root.expression_type = ET.INT
 
         # UNARY EXPRESSION
-        if root.value == NT.NEGATE:
+        elif root.value == NT.NEGATE:
             if root.parameters[0].expression_type != ET.INT:
                 raise_type_error()
             else:
                 root.expression_type = ET.INT
             
         # RELATIONAL OPERATORS
-        if root.value in {NT.DOUBLE_EQUAL, NT.EQUAL, NT.NOT_EQUAL, NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
+        elif root.value in {NT.DOUBLE_EQUAL, NT.EQUAL, NT.NOT_EQUAL, NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
             if root.parameters[0].expression_type != ET.INT or root.parameters[1].expression_type != ET.INT:
                 raise_type_error()
             else:
                 root.expression_type = ET.INT
 
         # LOGICAL OPERATORS
-        if root.value in {NT.AND, NT.OR, NT.NOT}:
+        elif root.value in {NT.AND, NT.OR, NT.NOT}:
             if root.parameters[0].expression_type != ET.BOOL or root.parameters[1].expression_type != ET.BOOL:
                 raise_type_error()
             else:
                 root.expression_type = ET.BOOL
 
         # SELECTION STATEMENTS
-        if root.value in {NT.IF, NT.ELIF}:
+        elif root.value in {NT.IF, NT.ELIF}:
             if root.parameters[0].expression_type != ET.BOOL:
                 raise_type_error()
 
         # FOR LOOP
-        if root.value == NT.FOR:
+        elif root.value == NT.FOR:
             if root.parameters[1].expression_type != ET.BOOL:
                 raise_type_error()
 
         # WHILE LOOP
-        if root.value == NT.WHILE:
+        elif root.value == NT.WHILE:
             if root.parameters[0].expression_type != ET.BOOL:
                 raise_type_error()
-
-    """
-    Node(NT.MULTIPLY, [
-    Node(NT.ADD, [
-        Node(NT.INT_LITERAL, [3]),
-        Node(NT.INT_LITERAL, [4])]),
-    Node(NT.INT_LITERAL, [2])])
-
-    """
