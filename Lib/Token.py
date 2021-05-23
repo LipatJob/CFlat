@@ -9,49 +9,7 @@ class Token:
     # Implement later
     line: int = 0  # In what line is the start of the token found
     column: int = 0  # How many characters are there before the start of the token
-
-
-class Reserved:
-    reserved={
-        "int": "keyword_datatype",
-        "string": "keyword_datatype" ,
-        "bool": "keyword_datatype" ,
-        "True": "keyword_boolean_literal" ,
-        "False": "keyword_boolean_literal" ,
-        "//": "comments" ,
-        "/*": "comments" ,
-        "input": "keyword_inputoutput" ,
-        "print": "keyword_inputoutput" ,
-        ",": "symbols_delimiters" ,
-        "(": "symbols_delimiters" ,
-        ")": "symbols_delimiters" ,
-        ";": "symbols_delimiters" ,
-        "{": "symbols_delimiters" ,
-        "}": "symbols_delimiters" ,
-        "if": "keyword_conditional_statement" ,
-        "elif": "keyword_conditional_statement",
-        "else": "keyword_conditional_statement",
-        "void": "keyword_function" ,
-        "return": "keyword_function",
-        "def": "keyword_function",
-        "while": "keyword_loops" ,
-        "for": "keyword_loops" ,
-        "=": "symbols_assignment_operator",
-        "and": "keyword_logical_operator",
-        "or": "keyword_logical_operator" ,
-        "not": "keyword_logical_operator" ,
-        "+": "symbols_arithmetic_operator" ,
-        "-": "symbols_arithmetic_operator" ,
-        "*": "symbols_arithmetic_operator" ,
-        "/": "symbols_arithmetic_operator" ,
-        "==": "symbols_relational_operator",
-        "!=": "symbols_relational_operator",
-        ">": "symbols_relational_operator" ,
-        "<": "symbols_relational_operator" ,
-        ">=": "symbols_relational_operator",
-        "<=": "symbols_relational_operator"
-     }
-
+'''
 class Types:
     keyword_datatype = "keyword_datatype"
     keyword_boolean_literal = "keyword_boolean_literal"
@@ -65,7 +23,7 @@ class Types:
     keyword_logical_operator = "keyword_logical_operator"
     symbols_arithmetic_operator = "symbols_arithmetic_operator"
     symbols_relational_operator = "symbols_relational_operator"
-
+'''
 class TokenType:
     INT_DATA_TYPE = "INT"
     STRING_DATA_TYPE = "STRING"
@@ -81,6 +39,10 @@ class TokenType:
     INPUT = "INPUT"
     PRINT = "PRINT"
     
+    DEF="DEF" #nakalimutan ata natin to?
+    SINGLE_LINE_COMMENT ="SINGLE_LINE_COMMENT"#nakalimutan ata natin to?
+    MULTI_LINE_COMMENT ="MULTI_LINE_COMMENT"#nakalimutan ata natin to?
+
     COMMA = "COMMA"
     OPEN_PARENTHESIS = "OPEN_PARENTHESIS"
     CLOSE_PARENTHESIS = "CLOSE_PARENTHESIS"
@@ -98,7 +60,7 @@ class TokenType:
     VOID = "VOID"
     RETURN = "RETURN"
 
-    EQUAL = "EQUAL"
+    EQUAL = "EQUAL" ##### huh umulit
     AND = "AND"
     OR = "OR"
     NOT = "NOT"
@@ -110,9 +72,50 @@ class TokenType:
 
     DOUBLE_EQUAL = "DOUBLE_EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
-    MORE_THAN = "MORE_THAN"
+    MORE_THAN = "MORE_THAN"##### huh umulit
     LESS = "LESS"
     MORE = "MORE"
     LESS_EQUAL = "LESS_EQUAL"
     MORE_EQUAL = "MORE_EQUAL"
     END_OF_FILE = "END_OF_FILE"
+
+class Reserved:
+    reserved={
+        "int": TokenType.INT_DATA_TYPE ,
+        "string": TokenType.STRING_DATA_TYPE ,
+        "bool": TokenType.BOOL_DATA_TYPE,
+        "True": TokenType.BOOL_LITERAL ,
+        "False": TokenType.BOOL_LITERAL ,
+        "//": TokenType.DOUBLE_SLASH ,
+        "/*": TokenType.SLASH_STAR ,
+        "input": TokenType.INPUT ,
+        "print": TokenType.PRINT ,
+        ",": TokenType.COMMA ,
+        "(": TokenType.OPEN_PARENTHESIS ,
+        ")": TokenType.CLOSE_PARENTHESIS ,
+        ";": TokenType.SEMI_COLON ,
+        "{": TokenType.OPEN_CURLY_BRACES ,
+        "}": TokenType.CLOSE_CURLY_BRACES ,
+        "if": TokenType.IF ,
+        "elif": TokenType.ELIF ,
+        "else": TokenType.ELSE ,
+        "void": TokenType.VOID ,
+        "return": TokenType.RETURN,
+        "def": TokenType.DEF,
+        "while": TokenType.WHILE ,
+        "for": TokenType.FOR ,
+        "=": TokenType.ASSIGN,
+        "and": TokenType.AND,
+        "or": TokenType.OR ,
+        "not": TokenType.NOT ,
+        "+": TokenType.PLUS ,
+        "-": TokenType.MINUS ,
+        "*": TokenType.STAR ,
+        "/": TokenType.SLASH ,
+        "==": TokenType.DOUBLE_EQUAL,
+        "!=": TokenType.NOT_EQUAL,
+        ">": TokenType.MORE ,
+        "<": TokenType.LESS ,
+        ">=": TokenType.MORE_EQUAL,
+        "<=": TokenType.LESS_EQUAL
+     }
