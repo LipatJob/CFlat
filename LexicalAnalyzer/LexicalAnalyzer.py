@@ -129,6 +129,8 @@ class LexicalAnalyzer:
                         buffer.append(cur_ch)
                         cur_ch = cur_f.read(1)
                         total_char_count+=1
+                        if cur_ch=="\n":
+                            line_count+=1
                         if cur_ch =="*":
                             buffer.append(cur_ch)
                             cur_ch = cur_f.read(1)
