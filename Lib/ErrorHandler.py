@@ -2,6 +2,9 @@ def raise_error(error_message):
     print(error_message)
     exit()
 
+def raise_token_error(linecount,charcount):
+    raise_error("ERROR: Unexpected token! Line: "+ str(linecount)+" Column: "+ str(charcount))
+
 def raise_type_error():
     raise_error("ERROR: Unexpected type!")
 

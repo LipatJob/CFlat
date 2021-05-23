@@ -1,5 +1,6 @@
 from Lib.Token import *
 from typing import List
+from Lib.ErrorHandler import *
 
 list_tokens = []
 char_count = 1
@@ -57,14 +58,14 @@ class LexicalAnalyzer:
                 char_count=0
                 total_char_count=0
             cur_ch = cur_f.read(1)
-            total_char_count+=1 #counted pati space
+            total_char_count+=1 
 
         if not cur_ch:# EOF
-            cur_token_type = "TOKEN_EOF"
+            cur_token_type = TokenType.END_OF_FILE
             cur_token = None
             return cur_token        
 
-        if cur_ch.isalpha(): # identifiers & keywords
+        if cur_ch.isalpha():
             char_count = total_char_count
             buffer.append(cur_ch)
             cur_ch = cur_f.read(1)
@@ -77,10 +78,10 @@ class LexicalAnalyzer:
             if cur_token in Reserved.reserved:
                 cur_token_type= Reserved.reserved.get(cur_token)
             else:
-                cur_token_type = "TOKEN_IDENTIFIER"
+                cur_token_type = TokenType.IDENTIFIER
             return cur_token
         
-        elif cur_ch.isnumeric(): # int literal note: WALA NEGATIVE
+        elif cur_ch.isnumeric(): 
             char_count=total_char_count
             buffer.append(cur_ch)
             cur_ch = cur_f.read(1)
@@ -89,42 +90,42 @@ class LexicalAnalyzer:
                 buffer.append(cur_ch)
                 cur_ch = cur_f.read(1)
                 total_char_count+=1
-            cur_token_type = "TOKEN_NUM int literal"
+            cur_token_type = TokenType.INT_LITERAL
             cur_token = self.buffer_to_string(buffer)
             return cur_token
 
-        elif cur_ch and cur_ch == '\"': # string literal
+        elif cur_ch and cur_ch == '\"':
             char_count=total_char_count
             buffer.append(cur_ch)
             cur_ch = cur_f.read(1)
             total_char_count +=1
             while cur_ch and cur_ch != '\"':
                 buffer.append(cur_ch)
-                if cur_ch == '\\':                      ##### idk this if-part
-                    buffer.append(cur_f.read(1))        ##### secretly eat next \t then act as if nothing happened
+                if cur_ch == '\\':                      
+                    buffer.append(cur_f.read(1))        
                 cur_ch = cur_f.read(1)
                 total_char_count +=1
             buffer.append(cur_ch)
             cur_ch = cur_f.read(1)
             total_char_count +=1
-            cur_token_type = "TOKEN_STRING string literal"
+            cur_token_type = TokenType.STRING_LITERAL
             cur_token = self.buffer_to_string(buffer)
             return cur_token
         
-        elif cur_ch == '/': ##comments
+        elif cur_ch == '/': 
             char_count = total_char_count
             buffer.append(cur_ch)
             cur_ch = cur_f.read(1)
             total_char_count+=1
-            if cur_ch =='/': #single line comment
+            if cur_ch =='/': 
                 while cur_ch and cur_ch!="\n":
                     buffer.append(cur_ch)
                     cur_ch = cur_f.read(1)
                     total_char_count+=1
                 cur_token = self.buffer_to_string(buffer)
-                cur_token_type = "single line comment"
+                cur_token_type = TokenType.SINGLE_LINE_COMMENT
                 return cur_token
-            elif cur_ch =='*':##multiline coment
+            elif cur_ch =='*':
                 while True:
                     buffer.append(cur_ch)
                     cur_ch = cur_f.read(1)
@@ -137,12 +138,12 @@ class LexicalAnalyzer:
                             buffer.append(cur_ch)
                             cur_ch = cur_f.read(1)
                             total_char_count+=1
-                            cur_token_type = "multi line comment"
+                            cur_token_type = TokenType.MULTI_LINE_COMMENT
                             cur_token = self.buffer_to_string(buffer)
                             return cur_token
             else:
                 cur_token = self.buffer_to_string(buffer)
-                cur_token_type = "symbols_arithmetic_operator"
+                cur_token_type = TokenType.SLASH
                 return cur_token
                     
         elif cur_ch == "=":
@@ -154,12 +155,12 @@ class LexicalAnalyzer:
                 buffer.append(cur_ch)
                 cur_ch = cur_f.read(1)
                 total_char_count+=1
-                cur_token_type = "symbols_relational_operator"
+                cur_token_type = TokenType.DOUBLE_EQUAL
                 cur_token = self.buffer_to_string(buffer)
                 return cur_token
             else:
                 cur_token = self.buffer_to_string(buffer)
-                cur_token_type = "symbols_assignment_operator"
+                cur_token_type = TokenType.ASSIGN
                 return cur_token
             
         elif cur_ch =="!":
@@ -171,29 +172,34 @@ class LexicalAnalyzer:
                 buffer.append(cur_ch)
                 cur_ch = cur_f.read(1)
                 total_char_count+=1
-                cur_token_type = "symbols_relational_operator"
+                cur_token_type = TokenType.NOT_EQUAL
                 cur_token = self.buffer_to_string(buffer)
                 return cur_token
-            ##################??????????????????
             else:
-                cur_token_type = "TOKEN_OTHER...ERROR"
-                cur_token = self.buffer_to_string(buffer)
-                return cur_token
+                raise_token_error(line_count,char_count)
             
         elif cur_ch == '>' or cur_ch == '<':
+            token = cur_ch
             char_count=total_char_count
             buffer.append(cur_ch)
             cur_ch = cur_f.read(1)
             total_char_count+=1
             if cur_ch =='=':
+                token+=cur_ch
                 buffer.append(cur_ch)
                 cur_ch = cur_f.read(1)
                 total_char_count+=1
-                cur_token_type = "symbols_relational_operator"
+                if token == ">=":
+                    cur_token_type = TokenType.MORE_EQUAL
+                else:
+                    cur_token_type = TokenType.LESS_EQUAL            
                 cur_token = self.buffer_to_string(buffer)
                 return cur_token
             cur_token = self.buffer_to_string(buffer)
-            cur_token_type = "symbols_relational_operator"
+            if token == ">":
+                cur_token_type = TokenType.MORE
+            else:
+                cur_token_type = TokenType.LESS
             return cur_token
 
         elif cur_ch in Reserved.reserved:
@@ -205,10 +211,4 @@ class LexicalAnalyzer:
             return cur_token
 
         else:
-            char_count=total_char_count
-            buffer.append(cur_ch)
-            cur_ch = cur_f.read(1)
-            total_char_count+=1
-            cur_token_type = "TOKEN_OTHER...ERROR"
-            cur_token = self.buffer_to_string(buffer)
-            return cur_token
+            raise_token_error(line_count,char_count)
