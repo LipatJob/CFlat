@@ -47,10 +47,10 @@ class SemanticAnalyzer:
             else:
                 if len(self.symbolTable) == 0:
                     # Add values into SymbolTable
-                    self.SymbolTable.__add__(root.parameters[0])
+                    self.SymbolTable.__add__(root.parameters[1])
                 else:
                     # Find current identifier value in SymbolTable
-                    if root.parameters[0] in self.SymbolTable:
+                    if root.parameters[1] in self.SymbolTable:
                         raise_identifier_error()
                     elif root.parameters[1] not in self.SymbolTable:
                         raise_undeclaredVariable_error(root.parameters[1])
