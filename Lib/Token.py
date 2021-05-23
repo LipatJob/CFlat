@@ -38,6 +38,7 @@ class TokenType:
     INPUT = "INPUT"
     PRINT = "PRINT"
     
+    SET="SET"
     DEF="DEF" #nakalimutan ata natin to?
     SINGLE_LINE_COMMENT ="SINGLE_LINE_COMMENT"#nakalimutan ata natin to?
     MULTI_LINE_COMMENT ="MULTI_LINE_COMMENT"#nakalimutan ata natin to?

@@ -80,7 +80,7 @@ class SyntaxAnalyzer:
             self.expect(TT.SEMI_COLON)
 
         # <assignment> ";"
-        elif self.is_type(TT.ASSIGN):
+        elif self.is_type(TT.SET):
             node = self.assign()
             self.expect(TT.SEMI_COLON)
 
@@ -175,11 +175,19 @@ class SyntaxAnalyzer:
         self.expect(TT.OPEN_CURLY_BRACES)
         block = self.block()
         self.expect(TT.CLOSE_CURLY_BRACES)
-        
-        return Node(NT.IF, [condition, block])
+
+        parameters = [condition, block]
+
+        optional = self.elif_statement()
+        if optional != None:
+            parameters.append(optional)
+
+        return Node(NT.IF, parameters)
 
     def elif_statement(self):
         # elif ("elif" "(" <expression> ")" "{" <block> "}")* ("else" "{" <statement> "}")?
+        if self.current() == None: 
+            return None
         if self.is_type(TT.ELIF):
             self.expect(TT.ELIF)
             self.expect(TT.OPEN_PARENTHESIS)
@@ -188,8 +196,14 @@ class SyntaxAnalyzer:
             self.expect(TT.OPEN_CURLY_BRACES)
             block = self.block()
             self.expect(TT.CLOSE_CURLY_BRACES)
+
+            parameters = [condition, block]
+
             optional = self.elif_statement()
-            return Node(NT.ELIF, [condition, block, optional])
+            if optional != None:
+                parameters.append(optional)
+
+            return Node(NT.ELIF, parameters)
         elif self.is_type(TT.ELSE):
             self.expect(TT.ELSE)
             self.expect(TT.OPEN_CURLY_BRACES)
@@ -249,13 +263,14 @@ class SyntaxAnalyzer:
         self.expect(TT.CLOSE_PARENTHESIS)
         return node
 
-    def print_tree(self, current: Node):
+    def print_tree(self, current: Node, tabs = 0):
+        start = "  "*tabs
         if current == None:
             print(";\n")
         else:
             if current.value in {NT.INT_LITERAL, NT.BOOL_LITERAL, NT.STRING_LITERAL, NT.IDENTIFIER}:
-                print(current.parameters[0], end=" ")
+                print(start+current.parameters[0])
             else:
-                print(current.value, end=" ")
+                print(start+current.value)
                 for node in current.parameters:
-                    self.print_tree(node)
+                    self.print_tree(node, tabs + 1)
