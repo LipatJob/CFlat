@@ -1,28 +1,17 @@
+from LexicalAnalyzer.LexicalAnalyzer import LexicalAnalyzer
 from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
-from Lib.Token import *
-from Lib.Token import TokenType as TT
-from Lib.Node import Node, NodeType as NT
+from pprint import pprint
+lexer = LexicalAnalyzer()
+parser = SyntaxAnalyzer()
 
-tokens = [
-    Token(TT.MINUS, "-"),
-    Token(TT.INT_LITERAL, "1"),
-    Token(TT.PLUS,"+"),
-    Token(TT.INT_LITERAL, "1"),
-    Token(TT.STAR,"*"),
-    Token(TT.INT_LITERAL, "1"),
-    Token(TT.MINUS,"-"),
-    Token(TT.INT_LITERAL, "1"),
-    Token(TT.SEMI_COLON, ";"),
-]
+file_name = "syntax_program.txt"
 
-analyzer = SyntaxAnalyzer()
+tokens = lexer.run(file_name)
 
-root = analyzer.run(tokens)
-print("----------")
-analyzer.print_tree(root)
+print("TOKENS:")
+pprint(tokens)
+print("END OF TOKENS")
 
-Node(NT.MULTIPLY, [
-    Node(NT.ADD, [
-        Node(NT.INT_LITERAL, [3]),
-        Node(NT.INT_LITERAL, [4])]),
-    Node(NT.INT_LITERAL, [2])])
+tree = parser.run(tokens)
+
+parser.print_tree(tree)
