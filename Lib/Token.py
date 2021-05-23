@@ -116,5 +116,6 @@ class Reserved:
         ">": TokenType.MORE ,
         "<": TokenType.LESS ,
         ">=": TokenType.MORE_EQUAL,
-        "<=": TokenType.LESS_EQUAL
+        "<=": TokenType.LESS_EQUAL,
+        "set":TokenType.SET
      }
