@@ -24,7 +24,7 @@ class LexicalAnalyzer:
         global cur_token_type
         global cur_f
         
-        cur_f = open("kk.txt") #cur_f = open(fileName)
+        cur_f = open(fileName)
         cur_ch = cur_f.read(1) 
 
         while True:
@@ -160,7 +160,7 @@ class LexicalAnalyzer:
                 return cur_token
             else:
                 cur_token = self.buffer_to_string(buffer)
-                cur_token_type = TokenType.ASSIGN
+                cur_token_type = TokenType.EQUAL
                 return cur_token
             
         elif cur_ch =="!":

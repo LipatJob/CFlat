@@ -16,27 +16,28 @@ class SyntaxAnalyzer:
     def run(self, tokens: List[Token]) -> 'Node':
         self.tokens = tokens
         self.pointer = 0
-        return self.expression(0)
+        return self.program()
 
     def current(self):
+        if self.is_complete(): return None
         return self.tokens[self.pointer]
 
     def next(self):
-        if self.is_last():
-            raise IndexError()
         self.pointer += 1
 
-    def is_last(self):
+    def is_complete(self):
         return self.pointer >= len(self.tokens)
 
     def expect(self, *expected_types):
         for expected in expected_types:
-            if self.current().type == expected:
+            current_type = self.current()
+            if current_type.type == expected:
+                cur = self.current()
                 self.next()
-                return self.current()
+                return cur
         else:
-            raise_error("or".join(expected_types), self.current().type)
-    
+            raise_syntax_error("or".join(expected_types), self.current().type)
+
     def is_type(self, *args):
         for arg in args:
             if self.current().type == arg:
@@ -46,64 +47,71 @@ class SyntaxAnalyzer:
     # <program>
     def program(self):
         # <block>
-        return Node(NT.PROGRAM, self.block())
+        return Node(NT.PROGRAM, [self.block()])
 
     # <block>
     def block(self):
         # <statement>*
-        if self.is_type(TT.END_OF_FILE, TT.CLOSE_CURLY_BRACES):
-            return None
-        return Node("block", [self.statement(), self.block()])
+        node = Node(NT.BLOCK, [])
+        while not self.is_complete() and not self.is_type(TT.END_OF_FILE, TT.CLOSE_CURLY_BRACES):
+            node.parameters.append(self.statement())
+
+        return node
 
     # <statement>
     def statement(self):
         node = None
-        
+
         # <for_loop>
         if self.is_type(TT.FOR):
             node = self.for_loop()
-        
+
         # <while_loop>
         elif self.is_type(TT.WHILE):
             node = self.while_loop()
-        
+
         # <if_statement>
         elif self.is_type(TT.IF):
             node = self.if_statement()
-        
+
         # <declaration> ";"
         elif self.is_type(TT.INT_DATA_TYPE, TT.STRING_DATA_TYPE, TT.BOOL_DATA_TYPE):
             node = self.declaration()
             self.expect(TT.SEMI_COLON)
-        
+
         # <assignment> ";"
         elif self.is_type(TT.ASSIGN):
             node = self.assign()
             self.expect(TT.SEMI_COLON)
-        
+
         # <output> ";"
         elif self.is_type(TT.PRINT):
             node = self.print()
             self.expect(TT.SEMI_COLON)
-        
+
         # Expression
         else:
             node = self.expression()
             self.expect(TT.SEMI_COLON)
-        
+
         return Node(NT.STATEMENT, [node])
 
     def declaration(self):
         # <declaration> ::= <data_type> <identifier> "=" <expression>
-        data_type = self.expect(TT.INT_DATA_TYPE, TT.BOOL_DATA_TYPE, TT.STRING_DATA_TYPE)
-        identifier = self.expect(TT.IDENTIFIER)
+        dt = self.expect(
+            TT.INT_DATA_TYPE, TT.BOOL_DATA_TYPE, TT.STRING_DATA_TYPE)
+        data_type = Node(NT.to_node_type(dt.type),[])
+
+        id = self.expect(TT.IDENTIFIER)
+        identifier = Node(NT.to_node_type(id.type), [id.value])
+         
         self.expect(TT.EQUAL)
         expression = self.expression()
         return Node(NT.DECLARATION, [data_type, identifier, expression])
 
     def assign(self):
         # <assignment> ::= "set" <identifier> "=" <expression>
-        self.expect(TT.ASSIGN)
+        self.expect(TT.EQUAL)
         identifier = self.expect(TT.IDENTIFIER)
         self.expect(TT.EQUAL)
         expression = self.expression()
@@ -116,7 +124,7 @@ class SyntaxAnalyzer:
         expression = self.expression()
         self.expect(TT.CLOSE_PARENTHESIS)
         return Node(NT.PRINT, [expression])
-    
+
     def input(self):
         # <input> ::= "input" "(" <expression> ")"
         self.expect(TT.INPUT)
@@ -139,7 +147,7 @@ class SyntaxAnalyzer:
 
         self.expect(TT.OPEN_CURLY_BRACES)
         block = self.block()
-        self.expect(TT.CLOSE_PARENTHESIS)
+        self.expect(TT.CLOSE_CURLY_BRACES)
 
         return Node(NT.FOR, [initialization, condition, increment, block])
 
@@ -152,7 +160,7 @@ class SyntaxAnalyzer:
 
         self.expect(TT.OPEN_CURLY_BRACES)
         block = self.block()
-        self.expect(TT.CLOSE_PARENTHESIS)
+        self.expect(TT.CLOSE_CURLY_BRACES)
 
         return Node(NT.WHILE, [condition, block])
 
@@ -167,8 +175,8 @@ class SyntaxAnalyzer:
         self.expect(TT.OPEN_CURLY_BRACES)
         block = self.block()
         self.expect(TT.CLOSE_CURLY_BRACES)
-        optional = self.elif_statement()
-        return Node(NT.IF, [condition, block, optional])
+        
+        return Node(NT.IF, [condition, block])
 
     def elif_statement(self):
         # elif ("elif" "(" <expression> ")" "{" <block> "}")* ("else" "{" <statement> "}")?
@@ -187,31 +195,30 @@ class SyntaxAnalyzer:
             self.expect(TT.OPEN_CURLY_BRACES)
             block = self.block()
             self.expect(TT.CLOSE_CURLY_BRACES)
-            return Node(NT.ELSE, block)
+            return Node(NT.ELSE, [block])
         return None
 
-
-    def expression(self, precedence = 0):
+    def expression(self, precedence=0):
         if self.is_type(TT.SEMI_COLON):
             return None
-        
+
         if self.is_type(TT.INPUT):
             return self.input()
 
         expression_tree = self.term()
 
-        while NT.is_binary_operator(self.current().type) and NT.get_precedence(self.current().type) >= precedence:
+        while NT.is_binary_operator(self.current().type) and NT.get_precedence(NT.to_node_type(self.current().type)) >= precedence:
             current = self.current()
             print(current)
 
             self.next()
-
-            next_precedence = NT.get_precedence(current.type)
-            if NT.get_associativity(current.type) != "RIGHT":
+            node_type = NT.to_node_type(current.type)
+            next_precedence = NT.get_precedence(node_type)
+            if NT.get_associativity(node_type) != "RIGHT":
                 next_precedence += 1
 
             expression_tree = Node(
-                NodeType.to_node_type(current.type), [expression_tree, self.expression(next_precedence)])
+                node_type, [expression_tree, self.expression(next_precedence)])
 
         return expression_tree
 
@@ -225,20 +232,20 @@ class SyntaxAnalyzer:
                 NT.get_precedence(NT.NEGATE))])
         elif self.is_type(TT.NOT):
             self.next()
-            node = Node(NT.NOT, [self.expression(Types.get_precedence("not"))])
+            node = Node(NT.NOT, [self.expression(TT.get_precedence(NT.NOT))])
         elif self.is_type(TT.IDENTIFIER):
-            node = Node(NT.IDENTIFIER, [self.current()])
+            node = Node(NT.IDENTIFIER, [self.current().value])
             self.next()
         elif self.is_type(TT.INT_LITERAL, TT.BOOL_LITERAL, TT.STRING_LITERAL):
-            node = Node(NT.to_node_type(self.current().type), [self.current()])
+            node = Node(NT.to_node_type(self.current().type), [self.current().value])
             self.next()
         else:
-            raise_syntax_error("", "")
+            raise_syntax_error("Expected term", self.current())
         return node
 
     def parenthesis_expression(self):
         self.expect(TT.OPEN_PARENTHESIS)
-        node = Node(None, [self.expression()])
+        node = self.expression()
         self.expect(TT.CLOSE_PARENTHESIS)
         return node
 
@@ -246,37 +253,9 @@ class SyntaxAnalyzer:
         if current == None:
             print(";\n")
         else:
-            if self.is_type(TT.INT_LITERAL, TT.BOOL_LITERAL, TT.STRING_LITERAL, TT.IDENTIFIER):
-                print(current.parameters[0].value, end=" ")
+            if current.value in {NT.INT_LITERAL, NT.BOOL_LITERAL, NT.STRING_LITERAL, NT.IDENTIFIER}:
+                print(current.parameters[0], end=" ")
             else:
-                print(current.token, end=" ")
+                print(current.value, end=" ")
                 for node in current.parameters:
                     self.print_tree(node)
-
-    """
-    def traverse_tree(self, current: Node):
-        if current == None: return
-
-        # check if literal or identifier
-
-        # traverse tree
-        for param in current.parameters:
-            self.traverse_tree(param)
-        
-        # evaluate
-        if current.type == "if statement":
-            if current.parameters[0].type != "boolean type":
-                raise_error()
-        
-        if current.type == "add":
-            if current.parameters[0].type != "int":
-                raise_error()
-
-        if current.type == "declaration":
-            # identifier
-            if current.parameters[1].value is already declared:
-                raise_error("identifier has already been ")
-
-    """
-
-

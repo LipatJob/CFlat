@@ -32,7 +32,6 @@ class TokenType:
     INT_LITERAL = "INT_LITERAL"
     STRING_LITERAL = "STRING_LITERAL"
     BOOL_LITERAL = "BOOL_LITERAL"
-    ASSIGN = "ASSIGN"
 
     DOUBLE_SLASH = "DOUBLE_SLASH"
     SLASH_STAR = "SLASH_STAR"
@@ -72,7 +71,6 @@ class TokenType:
 
     DOUBLE_EQUAL = "DOUBLE_EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
-    MORE_THAN = "MORE_THAN"##### huh umulit
     LESS = "LESS"
     MORE = "MORE"
     LESS_EQUAL = "LESS_EQUAL"
@@ -104,7 +102,7 @@ class Reserved:
         "def": TokenType.DEF,
         "while": TokenType.WHILE ,
         "for": TokenType.FOR ,
-        "=": TokenType.ASSIGN,
+        "=": TokenType.EQUAL,
         "and": TokenType.AND,
         "or": TokenType.OR ,
         "not": TokenType.NOT ,

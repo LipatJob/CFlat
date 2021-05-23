@@ -1,5 +1,6 @@
 def raise_error(error_message):
     print(error_message)
+    raise TypeError()
     exit()
 
 def raise_token_error(linecount,charcount):
