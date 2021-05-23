@@ -111,8 +111,11 @@ class SyntaxAnalyzer:
 
     def assign(self):
         # <assignment> ::= "set" <identifier> "=" <expression>
-        self.expect(TT.EQUAL)
-        identifier = self.expect(TT.IDENTIFIER)
+        self.expect(TT.SET)
+        
+        id = self.expect(TT.IDENTIFIER)
+        identifier = Node(NT.to_node_type(id.type), [id.value])
+        
         self.expect(TT.EQUAL)
         expression = self.expression()
         return Node(NT.ASSIGNMENT, [identifier, expression])
@@ -142,7 +145,7 @@ class SyntaxAnalyzer:
         self.expect(TT.SEMI_COLON)
         condition = self.expression()
         self.expect(TT.SEMI_COLON)
-        increment = self.expression()
+        increment = self.assign()
         self.expect(TT.CLOSE_PARENTHESIS)
 
         self.expect(TT.OPEN_CURLY_BRACES)
@@ -246,7 +249,7 @@ class SyntaxAnalyzer:
                 NT.get_precedence(NT.NEGATE))])
         elif self.is_type(TT.NOT):
             self.next()
-            node = Node(NT.NOT, [self.expression(TT.get_precedence(NT.NOT))])
+            node = Node(NT.NOT, [self.expression(NT.get_precedence(NT.NOT))])
         elif self.is_type(TT.IDENTIFIER):
             node = Node(NT.IDENTIFIER, [self.current().value])
             self.next()
