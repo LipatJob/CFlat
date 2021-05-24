@@ -4,8 +4,8 @@ from Lib.Token import Token
 class SymbolTable:
     table = []
 
-    def bind(self, identifier, value, data_type):
-        self.table.append([identifier, value, data_type])
+    def bind(self, identifier, value):
+        self.table.append([identifier, value])
 
     def lookup(self, identifier):
         for item in self.table:
@@ -13,6 +13,12 @@ class SymbolTable:
                 return item[1]
         else:
             return False
+
+    def assign(self, identifier, value):
+        for item in self.table:
+            if item[0] == identifier:
+                item[1] = value
+                return
 
 class TreeEvaluator:
     symbol_table = SymbolTable()
@@ -24,7 +30,7 @@ class TreeEvaluator:
 
         return
     
-    def evaluate(self, node):
+    def evaluate(self, node, returnStatement = False):
         if node.value == NT.PROGRAM:
             program = ""
 
@@ -33,7 +39,7 @@ class TreeEvaluator:
             
             return program
 
-        if node.value == NT.STATEMENT:
+        if node.value in {NT.STATEMENT, NT.BLOCK}:
             sProgram = ""
 
             for child in node.parameters:
@@ -43,80 +49,123 @@ class TreeEvaluator:
             
             return sProgram
 
-        if node.value == NT.BLOCK:
-            pass
+        if node.value == NT.IDENTIFIER:
+            if returnStatement:
+                return node.parameters[0]
 
-        if node.value in {NT.IDENTIFIER, NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL}:
+            return self.symbol_table.lookup(node.parameters[0])
+
+        if node.value in {NT.INT_LITERAL, NT.BOOL_LITERAL}:
             return node.parameters[0]
 
+        if node.value == NT.STRING_LITERAL:
+            return "\"" + node.parameters[0] + "\""
+
         if node.value == NT.DECLARATION:
-            id = self.evaluate(node.parameters[1])
+            id = self.evaluate(node.parameters[1], True)
             val = self.evaluate(node.parameters[2])
-            type = node.parameters[0].value
-            self.symbol_table.bind(id, val, type)
+            self.symbol_table.bind(id, val)
 
         if node.value == NT.ASSIGNMENT:
-            pass
+            id = self.evaluate(node.parameters[0], True)
+            val = self.evaluate(node.parameters[1])
+            self.symbol_table.assign(id, val)
 
         if node.value == NT.PRINT:
-            if node.parameters[0].value == NT.IDENTIFIER:
-                return "print(\"" + str(self.symbol_table.lookup(self.evaluate(node.parameters[0]))) + "\")"
-                
-            return "print(\"" + str(self.evaluate(node.parameters[0])) + "\")"
+            return "print(" + str(self.evaluate(node.parameters[0])) + ")"
 
-        if node.value == NT.INPUT:
-            pass
-
-        if node.value == NT.FOR:
-            pass
+        if node.value == NT.INPUT: # NOT DONE
+            return "input()"
 
         if node.value == NT.WHILE:
-            pass
+            whileStatement = ""
+            while self.evaluate(node.parameters[0]):
+                whileStatement += "\n" + self.evaluate(node.parameters[1])
+            return whileStatement
 
-        if node.value == NT.IF:
-            pass
+        if node.value == NT.FOR:
+            forStatement = ""
+            self.evaluate(node.parameters[0])
+            while self.evaluate(node.parameters[1]):
+                forStatement += "\n" + self.evaluate(node.parameters[3])
+                self.evaluate(node.parameters[2])
+            return forStatement
+
+        if node.value in {NT.IF, NT.ELIF}:
+            if (self.evaluate(node.parameters[0])):
+                return self.evaluate(node.parameters[1])
+            
+            if node.parameters[2]:
+                return self.evaluate(node.parameters[2])
+
+        if node.value == NT.ELSE:
+            return self.evaluate(node.parameters[0])
 
         if node.value == NT.NEGATE:
-            pass
+            return - self.evaluate(node.parameters[0])
 
         if node.value == NT.ADD:
             return self.evaluate(node.parameters[0]) + self.evaluate(node.parameters[1])
 
         if node.value == NT.SUBTRACT:
-            pass
+            return self.evaluate(node.parameters[0]) - self.evaluate(node.parameters[1])
 
         if node.value == NT.MULTIPLY:
-            pass
+            return self.evaluate(node.parameters[0]) * self.evaluate(node.parameters[1])
 
         if node.value == NT.DIVIDE:
-            pass
-
-        if node.value == NT.EQUAL:
-            pass
+            return int(self.evaluate(node.parameters[0]) / self.evaluate(node.parameters[1]))
 
         if node.value == NT.AND:
-            pass
+            if self.evaluate(node.parameters[0]) and self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.OR:
-            pass
+            if self.evaluate(node.parameters[0]) or self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.NOT:
-            pass
+            if not self.evaluate(node.parameters[0]):
+                return True
+            else:
+                return False
 
         if node.value == NT.DOUBLE_EQUAL:
-            pass
+            if self.evaluate(node.parameters[0]) == self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.NOT_EQUAL:
-            pass
+            if self.evaluate(node.parameters[0]) != self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.LESS:
-            pass
+            if self.evaluate(node.parameters[0]) < self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.MORE:
-            pass
+            if self.evaluate(node.parameters[0]) > self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.LESS_EQUAL:
-            pass
+            if self.evaluate(node.parameters[0]) <= self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
 
         if node.value == NT.MORE_EQUAL:
-            pass
+            if self.evaluate(node.parameters[0]) >= self.evaluate(node.parameters[1]):
+                return True
+            else:
+                return False
