@@ -60,7 +60,7 @@ class LexicalAnalyzer:
                 cur_ch = cur_f.read(1)
                 total_char_count+=1 
 
-            if not cur_ch:# EOF
+            if not cur_ch:
                 cur_token_type = TokenType.END_OF_FILE
                 cur_token = None
                 return cur_token        
@@ -211,4 +211,5 @@ class LexicalAnalyzer:
                 return cur_token
 
             else:
+                char_count=total_char_count
                 raise_token_error(line_count,char_count)
