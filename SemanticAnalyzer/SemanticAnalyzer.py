@@ -45,14 +45,25 @@ class SemanticAnalyzer:
             elif root.parameters[0] == NT.BOOL_DATA_TYPE and root.parameters[2].expression_type != ET.BOOL:
                 raise_type_error()
             else:
-                if len(self.symbolTable) == 0:
+                if len(self.SymbolTable) == 0:
                     # Add values into SymbolTable
+
+                    # (Code block not yet final)
+                    # self.SymbolDictionary[root] = [node_type, root.value]
+                    
                     self.SymbolTable.__add__(root.parameters[1])
                 else:
                     # Find current identifier value in SymbolTable
+
+                    # (Code block not yet final)
+                    # if root.parameters[1] in self.SymbolDictionary:
+                    #     raise_identifier_error()
+                    # elif root.parameters[1] not in self.SymbolDictionary:
+                    #     raise_undeclaredVariable_error(root.parameters[1])
+
                     if root.parameters[1] in self.SymbolTable:
                         raise_identifier_error()
-                    elif root.parameters[1] not in self.SymbolTable:
+                    elif root.parameters[1] not in self.SymbolTable:    
                         raise_undeclaredVariable_error(root.parameters[1])
             return
 
