@@ -1,11 +1,10 @@
-from Lib.Node import Node, NodeType as NT, ExpressionType as ET
-from Lib.Token import Token
+from Lib.Node import Node, NodeType as NT
 
 class SymbolTable:
     table = []
 
-    def bind(self, identifier, value):
-        self.table.append([identifier, value])
+    def bind(self, identifier, value, data_type):
+        self.table.append([identifier, value, data_type])
 
     def lookup(self, identifier):
         for item in self.table:
@@ -64,7 +63,8 @@ class TreeEvaluator:
         if node.value == NT.DECLARATION:
             id = self.evaluate(node.parameters[1], True)
             val = self.evaluate(node.parameters[2])
-            self.symbol_table.bind(id, val)
+            type = node.parameters[0].value
+            self.symbol_table.bind(id, val, type)
 
         if node.value == NT.ASSIGNMENT:
             id = self.evaluate(node.parameters[0], True)

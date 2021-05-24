@@ -1,7 +1,5 @@
 from TreeEvaluator.TreeEvaluator import TreeEvaluator
-from Lib.Token import *
-from Lib.Token import TokenType as TT
-from Lib.Node import Node, NodeType as NT, ExpressionType as ET
+from Lib.Node import Node, NodeType as NT
 """
 # print("Hello world!");
 # print("How are you?");
@@ -19,7 +17,7 @@ tree = Node(NT.PROGRAM, [
 ])
 
 # int a = 2 - 1;
-# a = a + 3;
+# set a = a + 3;
 # print(a);
 tree = Node(NT.PROGRAM, [
     Node(NT.STATEMENT, [
@@ -48,7 +46,7 @@ tree = Node(NT.PROGRAM, [
     ])
 ])
 
-# for (i = 0; i < 10; i++) { print(i); }
+# for (i = 0; i < 10; set i = i + 1) { print(i); }
 tree = Node(NT.PROGRAM, [
     Node(NT.STATEMENT, [
         Node(NT.FOR, [
@@ -82,7 +80,7 @@ tree = Node(NT.PROGRAM, [
 # int i = 0;
 # while(i < 5) { 
 # print(i);
-# i = i + 1;
+# set i = i + 1;
 # }
 tree = Node(NT.PROGRAM, [
     Node(NT.STATEMENT, [
