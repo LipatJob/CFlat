@@ -3,9 +3,11 @@ from Lib.Node import Node, NodeType as NT
 class SymbolTable:
     table = []
 
+    # Add new item to symbol table
     def bind(self, identifier, value, data_type):
         self.table.append([identifier, value, data_type])
 
+    # Return value of an identifier
     def lookup(self, identifier):
         for item in self.table:
             if item[0] == identifier:
@@ -13,6 +15,7 @@ class SymbolTable:
         else:
             return False
 
+    # Change value of an identifier
     def assign(self, identifier, value):
         for item in self.table:
             if item[0] == identifier:
@@ -24,82 +27,63 @@ class TreeEvaluator:
 
     def run(self, root: Node):
         if root:
-            program = self.evaluate(root)
-            exec(program)
-
-        return
+            self.evaluate(root)
     
-    def evaluate(self, node, returnStatement = False):
-        if node.value == NT.PROGRAM:
-            program = ""
-
+    # Recursive function
+    def evaluate(self, node):
+        if node.value in {NT.PROGRAM, NT.STATEMENT, NT.BLOCK}:
             for child in node.parameters:
-                program = self.evaluate(child)
-            
-            return program
+                self.evaluate(child)
 
-        if node.value in {NT.STATEMENT, NT.BLOCK}:
-            sProgram = ""
+        ## VALUES
 
-            for child in node.parameters:
-                line = self.evaluate(child)
-                if line:
-                    sProgram += "\n" + line
-            
-            return sProgram
-
-        if node.value == NT.IDENTIFIER:
-            if returnStatement:
-                return node.parameters[0]
-
-            return self.symbol_table.lookup(node.parameters[0])
-
-        if node.value in {NT.INT_LITERAL, NT.BOOL_LITERAL}:
+        if node.value in {NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL}:
             return node.parameters[0]
 
-        if node.value == NT.STRING_LITERAL:
-            return "\"" + node.parameters[0] + "\""
+        if node.value == NT.IDENTIFIER:
+            return self.symbol_table.lookup(node.parameters[0])
+
+        if node.value == NT.INPUT:
+            return input()
+
+        ## STATEMENTS
 
         if node.value == NT.DECLARATION:
-            id = self.evaluate(node.parameters[1], True)
+            id = node.parameters[1].parameters[0]
             val = self.evaluate(node.parameters[2])
             type = node.parameters[0].value
             self.symbol_table.bind(id, val, type)
 
         if node.value == NT.ASSIGNMENT:
-            id = self.evaluate(node.parameters[0], True)
+            id = node.parameters[0].parameters[0]
             val = self.evaluate(node.parameters[1])
             self.symbol_table.assign(id, val)
 
         if node.value == NT.PRINT:
-            return "print(" + str(self.evaluate(node.parameters[0])) + ")"
-
-        if node.value == NT.INPUT: # NOT DONE
-            return "input()"
+            print(self.evaluate(node.parameters[0]))
 
         if node.value == NT.WHILE:
-            whileStatement = ""
             while self.evaluate(node.parameters[0]):
-                whileStatement += "\n" + self.evaluate(node.parameters[1])
-            return whileStatement
+                self.evaluate(node.parameters[1])
 
         if node.value == NT.FOR:
-            forStatement = ""
             self.evaluate(node.parameters[0])
             while self.evaluate(node.parameters[1]):
-                forStatement += "\n" + self.evaluate(node.parameters[3])
+                self.evaluate(node.parameters[3])
                 self.evaluate(node.parameters[2])
-            return forStatement
 
         if node.value in {NT.IF, NT.ELIF}:
             if (self.evaluate(node.parameters[0])):
-                return self.evaluate(node.parameters[1])
+                self.evaluate(node.parameters[1])
+                return
             
             if node.parameters[2]:
-                return self.evaluate(node.parameters[2])
+                self.evaluate(node.parameters[2])
 
         if node.value == NT.ELSE:
-            return self.evaluate(node.parameters[0])
+            self.evaluate(node.parameters[0])
+
+        ## OPERATORS
 
         if node.value == NT.NEGATE:
             return - self.evaluate(node.parameters[0])
