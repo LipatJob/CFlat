@@ -9,7 +9,7 @@ def __main__():
     semanticAnalyzer = SemanticAnalyzer()
     evaluator = TreeEvaluator()
 
-    file_name = ""
+    file_name = "syntax_program.txt"
 
     tokens = lexer.run(file_name)
     tree = parser.run(tokens)
