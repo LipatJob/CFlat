@@ -34,6 +34,7 @@ class LexicalAnalyzer:
                 list_tokens.append(obj)
             else:
                 break  
+        cur_f.close()
         return list_tokens
         
     def buffer_to_string(self, buffer):
