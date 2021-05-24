@@ -211,4 +211,5 @@ class LexicalAnalyzer:
                 return cur_token
 
             else:
+                char_count=total_char_count
                 raise_token_error(line_count,char_count)
