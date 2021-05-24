@@ -32,13 +32,13 @@ class TokenType:
     INT_LITERAL = "INT_LITERAL"
     STRING_LITERAL = "STRING_LITERAL"
     BOOL_LITERAL = "BOOL_LITERAL"
-    ASSIGN = "ASSIGN"
 
     DOUBLE_SLASH = "DOUBLE_SLASH"
     SLASH_STAR = "SLASH_STAR"
     INPUT = "INPUT"
     PRINT = "PRINT"
     
+    SET="SET"
     DEF="DEF" #nakalimutan ata natin to?
     SINGLE_LINE_COMMENT ="SINGLE_LINE_COMMENT"#nakalimutan ata natin to?
     MULTI_LINE_COMMENT ="MULTI_LINE_COMMENT"#nakalimutan ata natin to?
@@ -72,7 +72,6 @@ class TokenType:
 
     DOUBLE_EQUAL = "DOUBLE_EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
-    MORE_THAN = "MORE_THAN"##### huh umulit
     LESS = "LESS"
     MORE = "MORE"
     LESS_EQUAL = "LESS_EQUAL"
@@ -104,7 +103,7 @@ class Reserved:
         "def": TokenType.DEF,
         "while": TokenType.WHILE ,
         "for": TokenType.FOR ,
-        "=": TokenType.ASSIGN,
+        "=": TokenType.EQUAL,
         "and": TokenType.AND,
         "or": TokenType.OR ,
         "not": TokenType.NOT ,
@@ -117,5 +116,6 @@ class Reserved:
         ">": TokenType.MORE ,
         "<": TokenType.LESS ,
         ">=": TokenType.MORE_EQUAL,
-        "<=": TokenType.LESS_EQUAL
+        "<=": TokenType.LESS_EQUAL,
+        "set":TokenType.SET
      }
