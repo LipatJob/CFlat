@@ -5,25 +5,9 @@ from dataclasses import dataclass
 class Token:
     type: str
     value: str
+    line: int = 0
+    column: int = 0 
 
-    # Implement later
-    line: int = 0  # In what line is the start of the token found
-    column: int = 0  # How many characters are there before the start of the token
-'''
-class Types:
-    keyword_datatype = "keyword_datatype"
-    keyword_boolean_literal = "keyword_boolean_literal"
-    comments = "comments"
-    keyword_inputoutput = "keyword_inputoutput"
-    symbols_delimiters = "symbols_delimiters"
-    keyword_conditional_statement = "keyword_conditional_statement"
-    keyword_function = "keyword_function"
-    keyword_loops = "keyword_loops"
-    symbols_assignment_operator = "symbols_assignment_operator"
-    keyword_logical_operator = "keyword_logical_operator"
-    symbols_arithmetic_operator = "symbols_arithmetic_operator"
-    symbols_relational_operator = "symbols_relational_operator"
-'''
 class TokenType:
     INT_DATA_TYPE = "INT"
     STRING_DATA_TYPE = "STRING"
@@ -39,9 +23,6 @@ class TokenType:
     PRINT = "PRINT"
     
     SET="SET"
-    DEF="DEF" #nakalimutan ata natin to?
-    SINGLE_LINE_COMMENT ="SINGLE_LINE_COMMENT"#nakalimutan ata natin to?
-    MULTI_LINE_COMMENT ="MULTI_LINE_COMMENT"#nakalimutan ata natin to?
 
     COMMA = "COMMA"
     OPEN_PARENTHESIS = "OPEN_PARENTHESIS"
@@ -60,7 +41,7 @@ class TokenType:
     VOID = "VOID"
     RETURN = "RETURN"
 
-    EQUAL = "EQUAL" ##### huh umulit
+    EQUAL = "EQUAL"
     AND = "AND"
     OR = "OR"
     NOT = "NOT"
@@ -85,8 +66,6 @@ class Reserved:
         "bool": TokenType.BOOL_DATA_TYPE,
         "True": TokenType.BOOL_LITERAL ,
         "False": TokenType.BOOL_LITERAL ,
-        "//": TokenType.DOUBLE_SLASH ,
-        "/*": TokenType.SLASH_STAR ,
         "input": TokenType.INPUT ,
         "print": TokenType.PRINT ,
         ",": TokenType.COMMA ,
@@ -98,9 +77,6 @@ class Reserved:
         "if": TokenType.IF ,
         "elif": TokenType.ELIF ,
         "else": TokenType.ELSE ,
-        "void": TokenType.VOID ,
-        "return": TokenType.RETURN,
-        "def": TokenType.DEF,
         "while": TokenType.WHILE ,
         "for": TokenType.FOR ,
         "=": TokenType.EQUAL,
