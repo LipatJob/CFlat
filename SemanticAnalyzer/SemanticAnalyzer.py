@@ -3,7 +3,6 @@ from Lib.Token import Token
 from Lib.ErrorHandler import *
 
 class SemanticAnalyzer:
-    SymbolTable = []
     SymbolDictionary = dict()
 
     def run(self, root: Node):
@@ -26,11 +25,10 @@ class SemanticAnalyzer:
             elif root.value == NT.IDENTIFIER:
                 
                 # Check if identifier is in the SymbolDictionary
-                if root.value not in self.SymbolDictionary:
+                if root.parameters[0] not in self.SymbolDictionary:
                     raise_undeclaredVariable_error(root.value)
                 else:
-                    root.value = self.SymbolDictionary[root][0]
-                    root = self.SymbolDictionary[root][1]
+                    root.expression_type = self.SymbolDictionary[root.parameters[0]][0]
             return
         
         # (Code block not yet final)
@@ -53,11 +51,11 @@ class SemanticAnalyzer:
             elif root.parameters[0] == NT.BOOL_DATA_TYPE and root.parameters[2].expression_type != ET.BOOL:
                 raise_type_error()
             else:
-                if len(self.SymbolTable) == 0 or root.parameters[1] not in self.SymbolTable:
+                if len(self.SymbolDictionary) == 0 or root.parameters[1] not in self.SymbolDictionary:
                     # Add values into SymbolTable
 
                     # (Code block not yet final)
-                    self.SymbolDictionary[root] = [node_type, root.value]
+                    self.SymbolDictionary[root.parameters[1]] = [root.parameters[0], root.parameters[2]]
                     
                     # self.SymbolTable.__add__(root.parameters[1])
                 else:
