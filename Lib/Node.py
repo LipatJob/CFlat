@@ -1,12 +1,13 @@
 from typing import List
-from Lib.Token import TokenType as TT
+from Lib.Token import Token, TokenType as TT
 
 
 class Node:
-    def __init__(self, value, parameters: List['Node'], expression_type=None):
+    def __init__(self, value, parameters: List['Node'], token_source: Token = None ,expression_type=None):
         self.value = value
         self.parameters = parameters
         self.expression_type = expression_type
+        self.token_source = token_source
 
 
 class ExpressionType:
