@@ -1,0 +1,7 @@
+>>start
+>>testcase_1.cf
+>>input
+>>output
+Hello world!
+Have a good day!
+>>end
