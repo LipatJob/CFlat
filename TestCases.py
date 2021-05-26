@@ -20,24 +20,42 @@ def run_compiler(file_name):
         return evaluator.run(tree)
 
 class TestSyntaxAnalayzer(unittest.TestCase):
-    def test1(self):
+    @patch("builtins.input")
+    def test1(self, mocked_input):
+        test_inputs = [
+        ]
+
         filenames = glob.glob("Tests/SyntaxAnalyzer/testcase*.cf")
-        for filename in filenames:
+        filenames.sort()
+        for test_input, filename in zip(test_inputs, filenames):
             with self.subTest(filename=filename):
+                mocked_input.side_effect = test_input
                 self.assertRaises(Exception, run_compiler, filename)
 
 class TestSemanticAnalyzer(unittest.TestCase):
-    def test1(self):
+    @patch("builtins.input")
+    def test1(self, mocked_input):
+        test_inputs = [
+        ]
+
         filenames = glob.glob("Tests/SemanticAnalyzer/testcase*.cf")
-        for filename in filenames:
+        filenames.sort()
+        for test_input, filename in zip(test_inputs, filenames):
             with self.subTest(filename=filename):
+                mocked_input.side_effect = test_input
                 self.assertRaises(Exception, run_compiler, filename)
 
 class TestLexicalAnalyzer(unittest.TestCase):
-    def test1(self):
+    @patch("builtins.input")
+    def test1(self, mocked_input):
+        test_inputs = [
+        ]
+
         filenames = glob.glob("Tests/LexicalAnalyzer/testcase*.cf")
-        for filename in filenames:
+        filenames.sort()
+        for test_input, filename in zip(test_inputs, filenames):
             with self.subTest(filename=filename):
+                mocked_input.side_effect = test_input
                 self.assertRaises(Exception, run_compiler, filename)
 
 class TestWorking(unittest.TestCase):
@@ -46,12 +64,12 @@ class TestWorking(unittest.TestCase):
     @patch("builtins.input")
     def test1(self, mocked_input):
         test_inputs = [
-            []
         ]
 
         expected_outputs = [
             '"Hello world!"\n"Have a good day!"\n'
         ]
+
         filenames = glob.glob("Tests/Working/testcase*.cf")
         filenames.sort()
         for test_input, expected_output, filename in zip(test_inputs, expected_outputs, filenames):
