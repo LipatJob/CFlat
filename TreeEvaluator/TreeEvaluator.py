@@ -25,9 +25,16 @@ class SymbolTable:
 class TreeEvaluator:
     symbol_table = SymbolTable()
 
+    def output(self, value, end = "\n"):
+        self.printed_values.append(value + end)
+        print(value, end = end)
+
     def run(self, root: Node):
+        self.printed_values = []
         if root:
             self.evaluate(root)
+        
+        return "".join(self.printed_values)
     
     # Recursive function
     def evaluate(self, node):
@@ -60,7 +67,7 @@ class TreeEvaluator:
             self.symbol_table.assign(id, val)
 
         if node.value == NT.PRINT:
-            print(self.evaluate(node.parameters[0]))
+            self.output(self.evaluate(node.parameters[0]))
 
         if node.value == NT.WHILE:
             while self.evaluate(node.parameters[0]):

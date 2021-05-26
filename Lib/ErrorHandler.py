@@ -14,3 +14,6 @@ def raise_identifier_error():
 
 def raise_undeclaredVariable_error(character):
     raise_error("ERROR: Variable", character, "is not defined!")
+
+def raise_syntax_error(expected, actual, token):
+    raise_error(f"Syntax Error: expected {expected} got {actual} on line {token.line} column {token.column}")

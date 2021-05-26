@@ -8,10 +8,6 @@ from typing import List
 from Lib.ErrorHandler import *
 
 
-def raise_syntax_error(expected, actual, token: Token):
-    raise_error(f"Syntax Error: expected {expected} got {actual} on line {token.line} column {token.column}")
-
-
 class SyntaxAnalyzer:
     def run(self, tokens: List[Token]) -> 'Node':
         self.tokens = tokens
@@ -19,7 +15,8 @@ class SyntaxAnalyzer:
         return self.program()
 
     def current(self):
-        if self.is_complete(): return None
+        if self.is_complete():
+            return None
         return self.tokens[self.pointer]
 
     def next(self):
@@ -30,7 +27,8 @@ class SyntaxAnalyzer:
 
     def expect(self, *expected_types):
         if self.is_complete():
-            raise_syntax_error(", ".join(expected_types), "END_OF_FILE", self.tokens[-1])
+            raise_syntax_error(", ".join(expected_types),
+                               "END_OF_FILE", self.tokens[-1])
         for expected in expected_types:
             current_type = self.current()
             if current_type.type == expected:
@@ -38,7 +36,8 @@ class SyntaxAnalyzer:
                 self.next()
                 return cur
         else:
-            raise_syntax_error("or".join(expected_types), self.current().type, self.current())
+            raise_syntax_error("or".join(expected_types),
+                               self.current().type, self.current())
 
     def is_type(self, *args):
         for arg in args:
@@ -103,11 +102,11 @@ class SyntaxAnalyzer:
         # <declaration> ::= <data_type> <identifier> "=" <expression>
         dt = self.expect(
             TT.INT_DATA_TYPE, TT.BOOL_DATA_TYPE, TT.STRING_DATA_TYPE)
-        data_type = Node(NT.to_node_type(dt.type),[])
+        data_type = Node(NT.to_node_type(dt.type), [])
 
         id = self.expect(TT.IDENTIFIER)
         identifier = Node(NT.to_node_type(id.type), [id.value], id)
-         
+
         self.expect(TT.EQUAL)
         expression = self.expression()
         return Node(NT.DECLARATION, [data_type, identifier, expression], dt)
@@ -115,10 +114,10 @@ class SyntaxAnalyzer:
     def assign(self):
         # <assignment> ::= "set" <identifier> "=" <expression>
         set = self.expect(TT.SET)
-        
+
         id = self.expect(TT.IDENTIFIER)
         identifier = Node(NT.to_node_type(id.type), [id.value], id)
-        
+
         self.expect(TT.EQUAL)
         expression = self.expression()
         return Node(NT.ASSIGNMENT, [identifier, expression], set)
@@ -192,7 +191,7 @@ class SyntaxAnalyzer:
 
     def elif_statement(self):
         # elif ("elif" "(" <expression> ")" "{" <block> "}")* ("else" "{" <statement> "}")?
-        if self.current() == None: 
+        if self.current() == None:
             return None
         if self.is_type(TT.ELIF):
             elif_token = self.expect(TT.ELIF)
@@ -249,16 +248,19 @@ class SyntaxAnalyzer:
         elif self.is_type(TT.MINUS):
             current = self.current()
             self.next()
-            node = Node(NT.NEGATE, [self.expression(NT.get_precedence(NT.NEGATE))], current)
+            node = Node(NT.NEGATE, [self.expression(
+                NT.get_precedence(NT.NEGATE))], current)
         elif self.is_type(TT.NOT):
             current = self.current()
             self.next()
-            node = Node(NT.NOT, [self.expression(NT.get_precedence(NT.NOT))], current)
+            node = Node(NT.NOT, [self.expression(
+                NT.get_precedence(NT.NOT))], current)
         elif self.is_type(TT.IDENTIFIER):
             node = Node(NT.IDENTIFIER, [self.current().value], self.current())
             self.next()
         elif self.is_type(TT.INT_LITERAL, TT.BOOL_LITERAL, TT.STRING_LITERAL):
-            node = Node(NT.to_node_type(self.current().type), [self.current().value], self.current())
+            node = Node(NT.to_node_type(self.current().type), [
+                        self.current().value], self.current())
             self.next()
         else:
             raise_syntax_error("TERM", self.current().type, self.current())
@@ -270,7 +272,7 @@ class SyntaxAnalyzer:
         self.expect(TT.CLOSE_PARENTHESIS)
         return node
 
-    def print_tree(self, current: Node, tabs = 0):
+    def print_tree(self, current: Node, tabs=0):
         start = "  "*tabs
         if current == None:
             print(";\n")

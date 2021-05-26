@@ -1,5 +1,6 @@
 import glob
 import unittest
+from unittest.mock import patch 
 from LexicalAnalyzer.LexicalAnalyzer import LexicalAnalyzer
 from SemanticAnalyzer.SemanticAnalyzer import  SemanticAnalyzer
 from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
@@ -16,7 +17,7 @@ def run_compiler(file_name):
         tokens = lexer.run(file_name)
         tree = parser.run(tokens)
         semanticAnalyzer.run(tree)
-        evaluator.run(tree)
+        return evaluator.run(tree)
 
 class TestSyntaxAnalayzer(unittest.TestCase):
     def test1(self):
@@ -40,10 +41,22 @@ class TestLexicalAnalyzer(unittest.TestCase):
                 self.assertRaises(Exception, run_compiler, filename)
 
 class TestWorking(unittest.TestCase):
-    def test1(self):
+    
+
+    @patch("builtins.input")
+    def test1(self, mocked_input):
+        test_inputs = [
+            []
+        ]
+
+        expected_outputs = [
+            '"Hello world!"\n"Have a good day!"\n'
+        ]
         filenames = glob.glob("Tests/Working/testcase*.cf")
-        for filename in filenames:
+        filenames.sort()
+        for test_input, expected_output, filename in zip(test_inputs, expected_outputs, filenames):
             with self.subTest(filename=filename):
-                self.assertRaises(Exception, run_compiler, filename)
+                mocked_input.side_effect = test_input
+                self.assertEquals(expected_output, run_compiler(filename))
         
 unittest.main()

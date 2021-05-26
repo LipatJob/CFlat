@@ -5,6 +5,8 @@ from Lib.ErrorHandler import *
 class SemanticAnalyzer:
     SymbolDictionary = dict()
 
+
+
     def run(self, root: Node):
 
         # Added traversal function code for type checking
@@ -74,7 +76,7 @@ class SemanticAnalyzer:
             return
 
         # CHECK EXPRESSION (Code block not yet final)
-        if root.parameters[0] == NT.INT:
+        if root.parameters[0] == NT.INT_LITERAL:
             root.expression_type = ET.INT
 
         # EXPRESSIONS 
