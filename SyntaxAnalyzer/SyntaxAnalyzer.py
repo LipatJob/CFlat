@@ -134,10 +134,12 @@ class SyntaxAnalyzer:
         # <input> ::= "input" "(" <expression> ")"
         self.expect(TT.INPUT)
         self.expect(TT.OPEN_PARENTHESIS)
-        expression = self.expression()
+        parameters = []
+        if self.current().type != TT.CLOSE_PARENTHESIS:
+            parameters.append(self.expression())
         self.expect(TT.CLOSE_PARENTHESIS)
 
-        return Node(NT.INPUT, [expression])
+        return Node(NT.INPUT, [Node(NT.STRING_LITERAL, [""])])
 
     def for_loop(self):
         # <for_loop> ::= "for" "(" <declaration> ";" <expression> ";" <expression> ")" "{" <block> "}"

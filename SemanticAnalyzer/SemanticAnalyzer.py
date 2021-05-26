@@ -57,7 +57,7 @@ class SemanticAnalyzer:
                     # Add values into SymbolTable
 
                     # (Code block not yet final)
-                    self.SymbolDictionary[root.parameters[1]] = [root.parameters[0], root.parameters[2]]
+                    self.SymbolDictionary[root.parameters[1].parameters[0]] = [root.parameters[0], root.parameters[2]]
                     
                     # self.SymbolTable.__add__(root.parameters[1])
                 else:

@@ -23,14 +23,15 @@ class SymbolTable:
                 return
 
 class TreeEvaluator:
-    symbol_table = SymbolTable()
+    def __init__(self):
+        self.printed_values = []
+        self.symbol_table = SymbolTable()
 
     def output(self, value, end = "\n"):
         self.printed_values.append(value + end)
         print(value, end = end)
 
     def run(self, root: Node):
-        self.printed_values = []
         if root:
             self.evaluate(root)
         

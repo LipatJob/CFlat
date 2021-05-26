@@ -5,3 +5,14 @@
 Hello world!
 Have a good day!
 >>end
+
+>>start
+>>testcase_2.cf
+>>input
+hello world
+>>output
+Enter a word:
+The word you entered:
+hello world
+>>end
+

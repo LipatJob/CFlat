@@ -23,6 +23,16 @@ class LexicalAnalyzer:
         global buffer
         global cur_token_type
         global cur_f
+
+        list_tokens = []
+        char_count = 1
+        total_char_count = 1
+        line_count = 1
+        cur_token = None
+        cur_ch = None
+        buffer = []
+        cur_token_type = -1
+        cur_f = None
         
         cur_f = open(fileName)
         cur_ch = cur_f.read(1) 

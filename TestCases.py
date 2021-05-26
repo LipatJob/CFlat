@@ -12,10 +12,10 @@ def run_compiler(file_name):
         semanticAnalyzer = SemanticAnalyzer()
         evaluator = TreeEvaluator()
 
-        print(file_name)
 
         tokens = lexer.run(file_name)
         tree = parser.run(tokens)
+
         semanticAnalyzer.run(tree)
         return evaluator.run(tree)
 
@@ -28,7 +28,7 @@ class TestSyntaxAnalayzer(unittest.TestCase):
         for test_input, filename in zip(test_inputs, filenames):
             with self.subTest(filename=filename):
                 mocked_input.side_effect = test_input
-                self.assertRaises(Exception, run_compiler, filename)
+                self.assertRaises(Exception, run_compiler, "Tests/SyntaxAnalyzer/"+filename)
 
 class TestSemanticAnalyzer(unittest.TestCase):
     @patch("builtins.input")
@@ -39,7 +39,7 @@ class TestSemanticAnalyzer(unittest.TestCase):
         for test_input, filename in zip(test_inputs, filenames):
             with self.subTest(filename=filename):
                 mocked_input.side_effect = test_input
-                self.assertRaises(Exception, run_compiler, filename)
+                self.assertRaises(Exception, run_compiler, "Tests/SemanticAnalyzer/"+filename)
 
 class TestLexicalAnalyzer(unittest.TestCase):
     @patch("builtins.input")
@@ -50,18 +50,19 @@ class TestLexicalAnalyzer(unittest.TestCase):
         for test_input, filename in zip(test_inputs, filenames):
             with self.subTest(filename=filename):
                 mocked_input.side_effect = test_input
-                self.assertRaises(Exception, run_compiler, filename)
+                self.assertRaises(Exception, run_compiler, "Tests/LexicalAnalyzer/"+filename)
 
 class TestWorking(unittest.TestCase):
-    
-
     @patch("builtins.input")
     def test1(self, mocked_input):
         with open("Tests/Working/input_output.txt") as f:
             filenames, test_inputs, expected_outputs = InOut.parse(f.read())
+
         for test_input, expected_output, filename in zip(test_inputs, expected_outputs, filenames):
             with self.subTest(filename=filename):
-                mocked_input.side_effect = test_input
-                self.assertEquals(expected_output, run_compiler(filename))
+                mocked_input.side_effect=test_input
+
+                actual = run_compiler("Tests/Working/"+filename)
+                self.assertEquals(expected_output, actual)
         
 unittest.main()
