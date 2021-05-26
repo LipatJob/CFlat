@@ -1,0 +1,5 @@
+print("Enter a word:");
+string x = input();
+
+print("The word you entered:");
+print(x);

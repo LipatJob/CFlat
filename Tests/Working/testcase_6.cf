@@ -1,0 +1,12 @@
+print("Enter a letter:");
+string l = input();
+
+if (l == "a") {
+    print("You entered a");
+}
+elif (l == "b") {
+    print("You entered b");
+}
+else {
+    print("You didn't enter a or b");
+}
