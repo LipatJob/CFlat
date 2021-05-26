@@ -111,6 +111,7 @@ class LexicalAnalyzer:
                 total_char_count +=1
                 cur_token_type = TokenType.STRING_LITERAL
                 cur_token = self.buffer_to_string(buffer)
+                cur_token = cur_token[1:-1]
                 return cur_token
             
             elif cur_ch == '/': 
