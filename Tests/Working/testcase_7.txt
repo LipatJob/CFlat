@@ -1,0 +1,5 @@
+print(not (5 > 5));
+
+print((2 != 2) or (4 <= 8));
+
+print(True and False);
