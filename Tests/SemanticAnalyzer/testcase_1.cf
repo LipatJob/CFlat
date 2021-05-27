@@ -1,0 +1,3 @@
+// Mismatched Data Type Test
+
+int num1 = “fifteen”; 
