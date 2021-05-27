@@ -1,5 +1,0 @@
->>start
-testcase_1.cf
->>input
->>output
->>end

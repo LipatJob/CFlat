@@ -1,3 +1,7 @@
-// Mismatched Data Type Test
-
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+Mismatched Data Type Test
+*/
 int num1 = "fifteen";
