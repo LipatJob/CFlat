@@ -83,11 +83,3 @@ True
 True
 False
 >>end
-
->>start
->>testcase_8.cf
->>input
->>output
-28
-True
->>end

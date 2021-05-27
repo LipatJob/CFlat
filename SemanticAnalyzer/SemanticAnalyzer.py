@@ -17,10 +17,10 @@ class SemanticAnalyzer:
         # Terminal expressions for leaf nodes
         # If identifier, check key if it exists and data type in SymbolDictionary
         # Otherwise, throw an error
-        elif root.value in {NT.IDENTIFIER, NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL}:
+        elif root.value in {NT.IDENTIFIER, NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL, NT.INPUT}:
             if root.value == NT.INT_LITERAL:
                 root.expression_type = ET.INT
-            elif root.value == NT.STRING_LITERAL:
+            elif root.value in {NT.STRING_LITERAL, NT.INPUT}:
                 root.expression_type = ET.STRING
             elif root.value == NT.BOOL_LITERAL:
                 root.expression_type = ET.BOOL
@@ -30,7 +30,8 @@ class SemanticAnalyzer:
                 if root.parameters[0] not in self.SymbolDictionary:
                     raise_undeclaredVariable_error(root.value)
                 else:
-                    root.expression_type = self.SymbolDictionary[root.parameters[0]][0]
+                    data_type = self.SymbolDictionary[root.parameters[0]][0].value
+                    root.expression_type = ET.to_expresion_type(data_type)
             return
         
         # (Code block not yet final)

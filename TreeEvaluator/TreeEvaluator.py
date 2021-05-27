@@ -1,4 +1,6 @@
-from Lib.Node import Node, NodeType as NT
+from Lib.Node import Node, NodeType as NT, ExpressionType as ET
+
+
 
 class SymbolTable:
     table = []
@@ -22,6 +24,13 @@ class SymbolTable:
                 item[1] = value
                 return
 
+    def get_type(self, identifier):
+        for item in self.table:
+            if item[0] == identifier:
+                return item[2   ]
+        else:
+            return False
+
 class TreeEvaluator:
     def __init__(self):
         self.printed_values = []
@@ -37,6 +46,14 @@ class TreeEvaluator:
         
         return "".join(self.printed_values)
     
+    def to_real_value(self, value, type):
+        if type in  {ET.INT, NT.INT_LITERAL}:
+            return int(value)
+        elif type in {ET.BOOL, NT.BOOL_LITERAL}:
+            return value == "True"
+        return value
+
+
     # Recursive function
     def evaluate(self, node):
         if node.value in {NT.PROGRAM, NT.STATEMENT, NT.BLOCK}:
@@ -45,10 +62,12 @@ class TreeEvaluator:
 
         ## VALUES
         if node.value in {NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL}:
-            return node.parameters[0]
+            return self.to_real_value(node.parameters[0], node.value)
 
         if node.value == NT.IDENTIFIER:
-            return self.symbol_table.lookup(node.parameters[0])
+            value = self.symbol_table.lookup(node.parameters[0])
+            data_type = self.symbol_table.get_type(node.parameters[0])
+            return self.to_real_value(value, data_type)
 
         if node.value == NT.INPUT:
             return input()

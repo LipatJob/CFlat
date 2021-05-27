@@ -66,8 +66,7 @@ class TestLexicalAnalyzer(unittest.TestCase):
                                   "Tests/LexicalAnalyzer/"+filename)
         print(f"Lexical Analyzer: Executed {len(filenames)} test cases")
 
-"""
-class TestWorking():
+class TestWorking(unittest.TestCase):
     @patch("builtins.input")
     def test_working(self, mocked_input):
         with open("Tests/Working/input_output.txt") as f:
@@ -80,6 +79,5 @@ class TestWorking():
                 actual = run_compiler("Tests/Working/"+filename)
                 self.assertEquals(expected_output, actual)
         print(f"Working: Executed {len(filenames)} test cases")
-"""
 
 unittest.main()
