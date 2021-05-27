@@ -1,6 +1,7 @@
 print("Enter a letter:");
 string l = input();
 
+// Test IF, ELIF, ELSE statements and DOUBLE_EQUAL operator
 if (l == "a") {
     print("You entered a");
 }

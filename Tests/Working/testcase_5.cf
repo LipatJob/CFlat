@@ -1,3 +1,4 @@
+// Test WHILE loop statement and MORE_EQUAL operator
 int i = 5;
 while(i >= 0) { 
     print(i);
