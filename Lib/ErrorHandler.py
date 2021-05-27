@@ -1,19 +1,47 @@
 def raise_error(error_message):
     print(error_message)
-    raise TypeError()
-    exit()
+    raise Exception()
 
 def raise_token_error(linecount,charcount):
-    raise_error("ERROR: Unexpected token! Line: "+ str(linecount)+" Column: "+ str(charcount))
+    raise TokenError("ERROR: Unexpected token! Line: "+ str(linecount)+" Column: "+ str(charcount))
 
 def raise_type_error():
-    raise_error("ERROR: Unexpected type!")
+    raise TypeError("ERROR: Unexpected type!")
 
 def raise_identifier_error():
-    raise_error("ERROR: Variables is already in use!")
+    raise IdentifierError("ERROR: Variables is already in use!")
 
 def raise_undeclaredVariable_error(character):
-    raise_error("ERROR: Variable", character, "is not defined!")
+    raise UndeclaredVariableError("ERROR: Variable", character, "is not defined!")
 
 def raise_syntax_error(expected, actual, token):
-    raise_error(f"Syntax Error: expected {expected} got {actual} on line {token.line} column {token.column}")
+    raise SyntaxError(f"Syntax Error: expected {expected} got {actual} on line {token.line} column {token.column}")
+
+class SemanticError(Exception):
+    def __init__(self, message):            
+        super().__init__(message)
+
+class TokenError(Exception):
+     def __init__(self, message):            
+        super().__init__(message)
+
+
+class TypeError(SemanticError):
+     def __init__(self, message):            
+        super().__init__(message)
+
+
+class IdentifierError(SemanticError):
+     def __init__(self, message):            
+        super().__init__(message)
+
+
+class SyntaxError(Exception):
+     def __init__(self, message):            
+        super().__init__(message)
+
+
+class UndeclaredVariableError(SemanticError):
+     def __init__(self, message):            
+        super().__init__(message)
+    

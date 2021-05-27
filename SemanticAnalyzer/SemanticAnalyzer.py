@@ -46,11 +46,11 @@ class SemanticAnalyzer:
         # If empty, store node values in dictionary
         # If not empty, compare the value in the dictionary
         if root.value == NT.DECLARATION:
-            if root.parameters[0] == NT.INT_DATA_TYPE and root.parameters[2].expression_type != ET.INT:
+            if root.parameters[0].value == NT.INT_DATA_TYPE and root.parameters[2].expression_type != ET.INT:
                 raise_type_error()
-            elif root.parameters[0] == NT.STRING_DATA_TYPE and root.parameters[2].expression_type != ET.STRING:
+            elif root.parameters[0].value == NT.STRING_DATA_TYPE and root.parameters[2].expression_type != ET.STRING:
                 raise_type_error()
-            elif root.parameters[0] == NT.BOOL_DATA_TYPE and root.parameters[2].expression_type != ET.BOOL:
+            elif root.parameters[0].value == NT.BOOL_DATA_TYPE and root.parameters[2].expression_type != ET.BOOL:
                 raise_type_error()
             else:
                 if len(self.SymbolDictionary) == 0 or root.parameters[1] not in self.SymbolDictionary:

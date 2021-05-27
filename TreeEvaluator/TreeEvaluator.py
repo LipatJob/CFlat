@@ -44,7 +44,6 @@ class TreeEvaluator:
                 self.evaluate(child)
 
         ## VALUES
-
         if node.value in {NT.INT_LITERAL, NT.STRING_LITERAL, NT.BOOL_LITERAL}:
             return node.parameters[0]
 

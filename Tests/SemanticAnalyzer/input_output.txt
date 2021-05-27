@@ -1,5 +1,5 @@
 >>start
->>1. testcase_1.cf
+testcase_1.cf
 >>input
 >>output
 >>end
