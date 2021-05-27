@@ -1,5 +1,8 @@
+// Test NOT and MORE operators
 print(not (5 > 5));
 
+// Test OR, NOT_EQUAL and LESS_EQUAL operators
 print((2 != 2) or (4 <= 8));
 
+// Test AND operator and booleans
 print(True and False);

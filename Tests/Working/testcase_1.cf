@@ -1,2 +1,3 @@
+// Test PRINT statements
 print("Hello world!");
 print("Have a good day!");

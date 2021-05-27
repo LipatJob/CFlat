@@ -1,0 +1,8 @@
+// Test arithmetic operators precedence
+int x = 2 + 4 * 6 - (- 8 / 4);
+
+// Test logical operators precedence
+bool y = (10 == 10) or not (2 < 5) and False;
+
+print(x);
+print(y);

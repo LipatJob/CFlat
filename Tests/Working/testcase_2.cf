@@ -1,4 +1,7 @@
+// Test PRINT before INPUT
 print("Enter a word:");
+
+// Test INPUT and DECLARATION
 string x = input();
 
 print("The word you entered:");
