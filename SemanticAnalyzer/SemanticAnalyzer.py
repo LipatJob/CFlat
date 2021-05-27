@@ -93,15 +93,26 @@ class SemanticAnalyzer:
             else:
                 root.expression_type = ET.INT
             
-        # RELATIONAL OPERATORS
-        elif root.value in {NT.DOUBLE_EQUAL, NT.EQUAL, NT.NOT_EQUAL, NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
+        # EQUALITY OPERATORS
+        elif root.value in {NT.EQUAL, NT.NOT_EQUAL,}:
+            if root.parameters[0].expression_type != root.parameters[1].expression_type:
+                raise_type_error()
+            else:
+                root.expression_type = ET.BOOL
+        # RELATIONAL OPERATORS      
+        elif root.value in {NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
             if root.parameters[0].expression_type != ET.INT or root.parameters[1].expression_type != ET.INT:
                 raise_type_error()
             else:
-                root.expression_type = ET.INT
+                root.expression_type = ET.BOOL
 
         # LOGICAL OPERATORS
-        elif root.value in {NT.AND, NT.OR, NT.NOT}:
+        elif root.value ==  NT.NOT:
+            if root.parameters[0].expression_type != ET.BOOL:
+                raise_type_error()
+            else:
+                root.expression_type = ET.BOOL
+        elif root.value in {NT.AND, NT.OR}:
             if root.parameters[0].expression_type != ET.BOOL or root.parameters[1].expression_type != ET.BOOL:
                 raise_type_error()
             else:

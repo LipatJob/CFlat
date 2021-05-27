@@ -76,7 +76,7 @@ You didn't enter a or b
 >>end
 
 >>start
->>testcase_1.cf
+>>testcase_7.cf
 >>input
 >>output
 True
