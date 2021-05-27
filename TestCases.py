@@ -21,7 +21,7 @@ def run_compiler(file_name):
 
 class TestSyntaxAnalayzer(unittest.TestCase):
     @patch("builtins.input")
-    def test1(self, mocked_input):
+    def test_syntax_analyzer(self, mocked_input):
         with open("Tests/SyntaxAnalyzer/input_output.txt") as f:
             filenames, test_inputs, expected_outputs = InOut.parse(f.read())
 
@@ -33,7 +33,7 @@ class TestSyntaxAnalayzer(unittest.TestCase):
 
 class TestSemanticAnalyzer(unittest.TestCase):
     @patch("builtins.input")
-    def test1(self, mocked_input):
+    def test_semantic_analyzer(self, mocked_input):
         with open("Tests/SemanticAnalyzer/input_output.txt") as f:
             filenames, test_inputs, expected_outputs = InOut.parse(f.read())
 
@@ -45,7 +45,7 @@ class TestSemanticAnalyzer(unittest.TestCase):
 
 class TestLexicalAnalyzer(unittest.TestCase):
     @patch("builtins.input")
-    def test1(self, mocked_input):
+    def test_lexical_analyzer(self, mocked_input):
         with open("Tests/LexicalAnalyzer/input_output.txt") as f:
             filenames, test_inputs, expected_outputs = InOut.parse(f.read())
 
@@ -57,7 +57,7 @@ class TestLexicalAnalyzer(unittest.TestCase):
 
 class TestWorking(unittest.TestCase):
     @patch("builtins.input")
-    def test1(self, mocked_input):
+    def test_working(self, mocked_input):
         with open("Tests/Working/input_output.txt") as f:
             filenames, test_inputs, expected_outputs = InOut.parse(f.read())
 
