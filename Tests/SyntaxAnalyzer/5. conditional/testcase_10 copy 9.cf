@@ -4,6 +4,10 @@
 >>Description:
 Counter example for if statements
 */
-if(){
+if(True){
+    print("Hello");
+}
+elif True){
     
 }
+
