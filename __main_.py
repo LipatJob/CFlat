@@ -9,7 +9,7 @@ def __main__():
     semanticAnalyzer = SemanticAnalyzer()
     evaluator = TreeEvaluator()
 
-    file_name = "./Tests/Working/testcase_5.cf"
+    file_name = "./Tests/Working/testcase_6.cf"
 
     tokens = lexer.run(file_name)
     tree = parser.run(tokens)

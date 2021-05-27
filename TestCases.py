@@ -8,6 +8,7 @@ from TreeEvaluator.TreeEvaluator import TreeEvaluator
 import Lib.TestCaseParser as InOut
 import Lib.TestCaseParser2 as TestParser
 from Lib.ErrorHandler import *
+from pprint import pprint
 
 
 def run_compiler(file_name):
@@ -77,7 +78,8 @@ class TestWorking(unittest.TestCase):
                 mocked_input.side_effect = test_input
 
                 actual = run_compiler("Tests/Working/"+filename)
-                self.assertEquals(expected_output, actual)
+
+                self.assertEqual(expected_output, actual)
         print(f"Working: Executed {len(filenames)} test cases")
 
 unittest.main()

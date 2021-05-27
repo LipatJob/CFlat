@@ -3,7 +3,8 @@ from Lib.Node import Node, NodeType as NT, ExpressionType as ET
 
 
 class SymbolTable:
-    table = []
+    def __init__(self) -> None:
+        self.table = []
 
     # Add new item to symbol table
     def bind(self, identifier, value, data_type):

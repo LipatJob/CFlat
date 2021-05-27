@@ -56,6 +56,7 @@ hello world
 >>input
 a
 >>output
+Enter a letter:
 You entered a
 >>end
 
@@ -64,6 +65,7 @@ You entered a
 >>input
 b
 >>output
+Enter a letter:
 You entered b
 >>end
 
@@ -72,6 +74,7 @@ You entered b
 >>input
 c
 >>output
+Enter a letter:
 You didn't enter a or b
 >>end
 
