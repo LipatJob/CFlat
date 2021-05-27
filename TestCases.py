@@ -29,6 +29,7 @@ class TestSyntaxAnalayzer(unittest.TestCase):
             with self.subTest(filename=filename):
                 mocked_input.side_effect = test_input
                 self.assertRaises(Exception, run_compiler, "Tests/SyntaxAnalyzer/"+filename)
+        print(f"Syntax Analyzer: Executed {len(filenames)} test cases")
 
 class TestSemanticAnalyzer(unittest.TestCase):
     @patch("builtins.input")
@@ -40,6 +41,7 @@ class TestSemanticAnalyzer(unittest.TestCase):
             with self.subTest(filename=filename):
                 mocked_input.side_effect = test_input
                 self.assertRaises(Exception, run_compiler, "Tests/SemanticAnalyzer/"+filename)
+        print(f"Semantic Analyzer: Executed {len(filenames)} test cases")
 
 class TestLexicalAnalyzer(unittest.TestCase):
     @patch("builtins.input")
@@ -51,6 +53,7 @@ class TestLexicalAnalyzer(unittest.TestCase):
             with self.subTest(filename=filename):
                 mocked_input.side_effect = test_input
                 self.assertRaises(Exception, run_compiler, "Tests/LexicalAnalyzer/"+filename)
+        print(f"Lexical Analyzer: Executed {len(filenames)} test cases")
 
 class TestWorking(unittest.TestCase):
     @patch("builtins.input")
@@ -64,5 +67,6 @@ class TestWorking(unittest.TestCase):
 
                 actual = run_compiler("Tests/Working/"+filename)
                 self.assertEquals(expected_output, actual)
+        print(f"Working: Executed {len(filenames)} test cases")
         
 unittest.main()

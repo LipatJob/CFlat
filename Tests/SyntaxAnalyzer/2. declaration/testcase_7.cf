@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+Counter example for declaration
+*/
+a = 1;
