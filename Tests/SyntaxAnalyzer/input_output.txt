@@ -1,0 +1,59 @@
+>>start
+>>1. semicolon/testcase_1.cf
+>>input
+>>output
+>>end
+
+>>start
+>>1. semicolon/testcase_2.cf
+>>input
+>>output
+>>end
+
+>>start
+>>1. semicolon/testcase_3.cf
+>>input
+>>output
+>>end
+
+>>start
+>>1. semicolon/testcase_4.cf
+>>input
+>>output
+>>end
+
+>>start
+>>2. declaration/testcase_5.cf
+>>input
+>>output
+>>end
+
+>>start
+>>2. declaration/testcase_6.cf
+>>input
+>>output
+>>end
+
+>>start
+>>2. declaration/testcase_7.cf
+>>input
+>>output
+>>end
+
+>>start
+>>3. assignment/testcase_8.cf
+>>input
+>>output
+>>end
+
+>>start
+>>4. expressions/testcase_9.cf
+>>input
+>>output
+>>end
+
+>>start
+>>4. expressions/testcase_10.cf
+>>input
+>>output
+>>end

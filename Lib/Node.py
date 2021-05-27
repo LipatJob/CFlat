@@ -3,7 +3,7 @@ from Lib.Token import Token, TokenType as TT
 
 
 class Node:
-    def __init__(self, value, parameters: List['Node'], token_source: Token = None ,expression_type=None):
+    def __init__(self, value, parameters: List['Node'], token_source: Token = None, expression_type=None):
         self.value = value
         self.parameters = parameters
         self.expression_type = expression_type
@@ -46,12 +46,11 @@ class NodeType:
     MULTIPLY = "MULTIPLY"
     DIVIDE = "DIVIDE"
 
-    EQUAL = "EQUAL"
     AND = "AND"
     OR = "OR"
     NOT = "NOT"
 
-    DOUBLE_EQUAL = "DOUBLE_EQUAL"
+    EQUAL = "EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
     LESS = "LESS"
     MORE = "MORE"
@@ -76,9 +75,9 @@ class NodeType:
         TT.INT_LITERAL: INT_LITERAL,
         TT.STRING_LITERAL: STRING_LITERAL,
         TT.BOOL_LITERAL: BOOL_LITERAL,
-        TT.INT_DATA_TYPE:INT_DATA_TYPE,
-        TT.BOOL_DATA_TYPE:BOOL_DATA_TYPE,
-        TT.STRING_DATA_TYPE:STRING_DATA_TYPE,
+        TT.INT_DATA_TYPE: INT_DATA_TYPE,
+        TT.BOOL_DATA_TYPE: BOOL_DATA_TYPE,
+        TT.STRING_DATA_TYPE: STRING_DATA_TYPE,
         TT.IDENTIFIER: IDENTIFIER,
     }
 
@@ -147,3 +146,5 @@ class NodeType:
     @classmethod
     def is_binary_operator(cls, operator):
         return operator in cls.binary_operators
+
+

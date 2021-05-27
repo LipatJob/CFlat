@@ -28,7 +28,7 @@ class TreeEvaluator:
         self.symbol_table = SymbolTable()
 
     def output(self, value, end = "\n"):
-        self.printed_values.append(value + end)
+        self.printed_values.append(str(value) + end)
         print(value, end = end)
 
     def run(self, root: Node):
@@ -126,7 +126,7 @@ class TreeEvaluator:
             else:
                 return False
 
-        if node.value == NT.DOUBLE_EQUAL:
+        if node.value == NT.EQUAL:
             if self.evaluate(node.parameters[0]) == self.evaluate(node.parameters[1]):
                 return True
             else:
