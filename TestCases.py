@@ -27,45 +27,62 @@ def run_compiler(file_name):
 class TestSyntaxAnalayzer(unittest.TestCase):
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
-        filenames = glob.glob("Tests/SyntaxAnalyzer/**/testcase*.cf", recursive=True)
+        filenames = glob.glob(
+            "Tests/SyntaxAnalyzer/**/testcase*.cf", recursive=True)
+        count = 0
         for filename in filenames:
             with open(filename) as f:
                 test_case = TestParser.parse(f.read())
-                if not test_case: continue
+                if not test_case:
+                    continue
 
                 inputs, outputs = test_case
             with self.subTest(filename=filename):
                 mocked_input.side_effect = inputs
                 self.assertRaises(SyntaxError, run_compiler, filename)
-        print(f"Syntax Analyzer: Executed {len(filenames)} test cases")
+                count += 1
+        print(f"Syntax Analyzer: Executed {count} test cases")
 
 
 class TestSemanticAnalyzer(unittest.TestCase):
     @patch("builtins.input")
     def test_semantic_analyzer(self, mocked_input):
-        with open("Tests/SemanticAnalyzer/input_output.txt") as f:
-            filenames, test_inputs, expected_outputs = InOut.parse(f.read())
+        filenames = glob.glob(
+            "Tests/SemanticAnalyzer/**/testcase*.cf", recursive=True)
+        count = 0
+        for filename in filenames:
+            with open(filename) as f:
+                test_case = TestParser.parse(f.read())
+                if not test_case:
+                    continue
 
-        for test_input, filename in zip(test_inputs, filenames):
+                inputs, outputs = test_case
             with self.subTest(filename=filename):
-                mocked_input.side_effect = test_input
-                self.assertRaises(SemanticError, run_compiler,
-                                  "Tests/SemanticAnalyzer/"+filename)
-        print(f"Semantic Analyzer: Executed {len(filenames)} test cases")
+                mocked_input.side_effect = inputs
+                self.assertRaises(SemanticError, run_compiler, filename)
+                count += 1
+        print(f"Semantic Analyzer: Executed {count} test cases")
 
 
 class TestLexicalAnalyzer(unittest.TestCase):
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
-        with open("Tests/LexicalAnalyzer/input_output.txt") as f:
-            filenames, test_inputs, expected_outputs = InOut.parse(f.read())
+        filenames = glob.glob(
+            "Tests/LexicalAnalyzer/**/testcase*.cf", recursive=True)
+        count = 0
+        for filename in filenames:
+            with open(filename) as f:
+                test_case = TestParser.parse(f.read())
+                if not test_case:
+                    continue
 
-        for test_input, filename in zip(test_inputs, filenames):
+                inputs, outputs = test_case
             with self.subTest(filename=filename):
-                mocked_input.side_effect = test_input
-                self.assertRaises(TokenError, run_compiler,
-                                  "Tests/LexicalAnalyzer/"+filename)
-        print(f"Lexical Analyzer: Executed {len(filenames)} test cases")
+                mocked_input.side_effect = inputs
+                self.assertRaises(SyntaxError, run_compiler, filename)
+                count += 1
+        print(f"Lexical Analyzer: Executed {count} test cases")
+
 
 class TestWorking(unittest.TestCase):
     @patch("builtins.input")
@@ -81,5 +98,6 @@ class TestWorking(unittest.TestCase):
 
                 self.assertEqual(expected_output, actual)
         print(f"Working: Executed {len(filenames)} test cases")
+
 
 unittest.main()
