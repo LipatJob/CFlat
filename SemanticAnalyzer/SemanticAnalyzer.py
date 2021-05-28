@@ -12,7 +12,7 @@ class SemanticAnalyzer:
         # Added traversal function code for type checking
         # NOTE: Type checking for Assignment, Declaration and Input still pending
 
-        if root == None: return
+        if root == None or len(root.parameters) == 0: return
 
         # Terminal expressions for leaf nodes
         # If identifier, check key if it exists and data type in SymbolDictionary
