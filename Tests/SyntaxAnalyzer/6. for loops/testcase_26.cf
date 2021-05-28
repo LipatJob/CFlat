@@ -1,0 +1,10 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+Counter example for for loops
+*/
+int i = 0;
+for(set i = 0; i < 10; set i = i + 1){
+    
+}

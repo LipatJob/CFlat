@@ -1,0 +1,10 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+Counter example for while loops
+*/
+int i = 0;
+while(i < 5)
+    set i = i + 1;
+}

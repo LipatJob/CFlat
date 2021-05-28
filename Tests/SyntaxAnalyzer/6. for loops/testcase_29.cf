@@ -1,0 +1,9 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+Counter example for for loops
+*/
+for(; i < 10; set i = i + 1){
+    
+}
