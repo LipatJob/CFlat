@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for if statements
+No condition
 */
 if(){
     

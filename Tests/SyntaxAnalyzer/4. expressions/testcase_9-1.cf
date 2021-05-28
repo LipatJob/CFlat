@@ -3,5 +3,6 @@
 >>Output:
 >>Description:
 Counter example for declaration
+Missing right hand side expression
 */
 int a = 1 +;

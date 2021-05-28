@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for for loops
+No first parameter
 */
 for(; i < 10; set i = i + 1){
     

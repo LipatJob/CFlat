@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for for loops
+Declaration instead of assignemnt in the third parameter
 */
 for(int i = 0; i < 10; int j = 1){
     

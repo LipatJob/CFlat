@@ -3,5 +3,6 @@
 >>Output:
 >>Description:
 Counter example for semi colon
+No semi colon after print statement
 */
 print("hello")

@@ -3,5 +3,6 @@
 >>Output:
 >>Description:
 Counter example for declaration
+Missing expression after equal symbol
 */
 int a = ;

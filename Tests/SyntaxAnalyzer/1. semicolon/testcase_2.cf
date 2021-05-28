@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for semi colon
+No semi colon after assignment statement
 */
 int a = 1;
 set a = 1

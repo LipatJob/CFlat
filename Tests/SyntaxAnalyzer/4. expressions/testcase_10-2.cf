@@ -3,5 +3,6 @@
 >>Output:
 >>Description:
 Counter example for declaration
+Missing expression after unary operator
 */
-int a = * 1;
+bool a = 1 not ;

@@ -3,6 +3,6 @@
 >>Output:
 >>Description:
 Counter example for declaration
-Missing data type
+Missing left hand side in expression
 */
-a = 1;
+int a = * 1;

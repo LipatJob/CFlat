@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for while loops
+Assignment instead of expression in condition
 */
 int i = 0;
 while(set i = 5){

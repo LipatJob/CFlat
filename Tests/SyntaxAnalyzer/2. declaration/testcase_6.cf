@@ -3,5 +3,6 @@
 >>Output:
 >>Description:
 Counter example for declaration
+Missing identifier
 */
 int = 1;

@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for if statements
+Missing opening curly braces
 */
 if(True)
     

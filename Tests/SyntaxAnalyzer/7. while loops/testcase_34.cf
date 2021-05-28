@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for while loops
+Missing open parenthesis
 */
 int i = 0;
 whilei < 5){

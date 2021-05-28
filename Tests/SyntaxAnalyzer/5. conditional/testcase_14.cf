@@ -3,7 +3,8 @@
 >>Output:
 >>Description:
 Counter example for if statements
+Missing both curly braces
 */
-if(True){
+if(True)
 
     

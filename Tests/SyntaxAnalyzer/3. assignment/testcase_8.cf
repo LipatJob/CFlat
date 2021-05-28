@@ -3,5 +3,6 @@
 >>Output:
 >>Description:
 Counter example for assignment
+missing expression after equal symbol
 */
-set a;
+set a = ;

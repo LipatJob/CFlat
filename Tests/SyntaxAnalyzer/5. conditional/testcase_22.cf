@@ -3,6 +3,7 @@
 >>Output:
 >>Description:
 Counter example for if statements
+Wrong keyword for else
 */
 if(True){
     print("Hello");
