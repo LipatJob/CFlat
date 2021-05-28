@@ -39,10 +39,10 @@ class LexicalAnalyzer:
 
         while True:
             token = self.next()
-            if token != None:
-                obj = Token(cur_token_type, token, line_count,char_count)
-                list_tokens.append(obj)
-            else:
+            
+            obj = Token(cur_token_type, token, line_count,char_count)
+            list_tokens.append(obj)
+            if token == None:
                 break  
         cur_f.close()
         return list_tokens
@@ -73,6 +73,7 @@ class LexicalAnalyzer:
 
             if not cur_ch:
                 cur_token_type = TokenType.END_OF_FILE
+                char_count = total_char_count
                 cur_token = None
                 return cur_token        
 
