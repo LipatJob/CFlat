@@ -36,8 +36,8 @@ class CompilerTestCase(unittest.TestCase):
                 # run compiler and expect error
                 actual_output = self.run_compiler(filename,
                                                   display_tokens=False,
-                                                  display_tree=False,
-                                                  display_symbol_table=True)
+                                                  display_tree=True,
+                                                  display_symbol_table=False)
 
                 # Compare expected output with actual output
                 self.assertEqual(actual_output, expected_output)
