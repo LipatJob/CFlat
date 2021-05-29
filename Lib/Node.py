@@ -18,13 +18,12 @@ class ExpressionType:
     @classmethod
     def to_expresion_type(cls, node_type):
         conversion = {
-            NodeType.INT_DATA_TYPE:cls.INT,
-            NodeType.STRING_DATA_TYPE:cls.STRING,
-            NodeType.BOOL_DATA_TYPE:cls.BOOL,
+            NodeType.INT_DATA_TYPE: cls.INT,
+            NodeType.STRING_DATA_TYPE: cls.STRING,
+            NodeType.BOOL_DATA_TYPE: cls.BOOL,
         }
 
         return conversion[node_type]
-
 
 
 class NodeType:
@@ -157,6 +156,3 @@ class NodeType:
     @classmethod
     def is_binary_operator(cls, operator):
         return operator in cls.binary_operators
-
-
-

@@ -1,4 +1,6 @@
+from Lib.Token import Token
 import glob
+from typing import List
 import unittest
 from unittest.mock import patch
 from LexicalAnalyzer.LexicalAnalyzer import LexicalAnalyzer
@@ -9,10 +11,8 @@ import Lib.TestCaseParser as InOut
 import Lib.TestCaseParser2 as TestParser
 from Lib.ErrorHandler import *
 from pprint import pprint
+from Lib import OutputFormatter
 import os
-
-
-
 
 
 class CompilerTestCase(unittest.TestCase):
@@ -31,15 +31,23 @@ class CompilerTestCase(unittest.TestCase):
                 # Mock inputs as side effect
                 mocked_input.side_effect = inputs
 
+                print("Running Test Case:",filename)
+
                 # run compiler and expect error
-                actual_output = self.run_compiler(filename)
+                actual_output = self.run_compiler(filename, 
+                                        display_tokens=False,
+                                        display_tree=True,
+                                        display_symbol_table=False)
 
                 # Compare expected output with actual output
-                self.assertEquals(actual_output, expected_output)
+                self.assertEqual(actual_output, expected_output)
+
+                print("Success!")
+                print()
 
                 count += 1
         return count
-    
+
     def run_counter_example(self, mocked_input, filenames, errorType):
         count = 0
         for filename in filenames:
@@ -54,16 +62,19 @@ class CompilerTestCase(unittest.TestCase):
                 # Mock inputs as side effect
                 mocked_input.side_effect = inputs
 
+                print("Running Test Case:",filename)
                 # run compiler and expect error
                 with self.assertRaises(errorType) as err:
                     self.run_compiler(filename)
 
                 # Display error
                 print(os.path.basename(filename)+":", err.exception)
+                print("Success!")
+                print()
                 count += 1
         return count
 
-    def run_compiler(self, file_name):
+    def run_compiler(self, file_name, display_tokens = False, display_tree = False, display_symbol_table = False):
         lexer = LexicalAnalyzer()
         parser = SyntaxAnalyzer()
         semanticAnalyzer = SemanticAnalyzer()
@@ -71,9 +82,34 @@ class CompilerTestCase(unittest.TestCase):
 
         tokens = lexer.run(file_name)
         tree = parser.run(tokens)
+        symbol_table = semanticAnalyzer.run(tree)
 
-        semanticAnalyzer.run(tree)
+        if display_tokens:
+            self.display_tokens(tokens)
+        
+        if display_tree:
+            self.display_tree(tree)
+
+        if display_symbol_table:
+            pass
+
         return evaluator.run(tree)
+
+    def display_tokens(self, tokens: List['Token']):
+        print("--"*20)
+        print("Tokens:")
+        for token in tokens:
+            print(f"{token.type:20}{token.value}")
+        print("--"*20)
+        
+
+
+    def display_tree(self, tree):
+        OutputFormatter.print_tree(tree)
+
+    def display_symbol_table(self, symbol_table):
+        pass
+
 
 class TestSyntaxAnalayzer(CompilerTestCase):
     @patch("builtins.input")
@@ -83,11 +119,10 @@ class TestSyntaxAnalayzer(CompilerTestCase):
             "Tests/SyntaxAnalyzer/**/testcase*.cf", recursive=True)
 
         count = self.run_counter_example(mocked_input, filenames, SyntaxError)
-        
+
         # Display how many test cases ran
         print(f"Syntax Analyzer: Executed {count} test cases")
 
-    
 
 class TestSemanticAnalyzer(CompilerTestCase):
     @patch("builtins.input")
@@ -95,7 +130,8 @@ class TestSemanticAnalyzer(CompilerTestCase):
         filenames = glob.glob(
             "Tests/SemanticAnalyzer/**/testcase*.cf", recursive=True)
 
-        count = self.run_counter_example(mocked_input, filenames, SemanticError)
+        count = self.run_counter_example(
+            mocked_input, filenames, SemanticError)
 
         print(f"Semantic Analyzer: Executed {count} test cases")
 
