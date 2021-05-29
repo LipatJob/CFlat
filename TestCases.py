@@ -14,6 +14,9 @@ from pprint import pprint
 from Lib import OutputFormatter
 import os
 
+DISPLAY_TOKENS = True
+DISPLAY_TREE= False
+DISPLAY_SYMBOL_TABLE = False
 
 class CompilerTestCase(unittest.TestCase):
     def run_working_example(self, mocked_input, filenames):
@@ -35,9 +38,9 @@ class CompilerTestCase(unittest.TestCase):
 
                 # run compiler and expect error
                 actual_output = self.run_compiler(filename,
-                                                  display_tokens=False,
-                                                  display_tree=True,
-                                                  display_symbol_table=False)
+                                                  display_tokens=DISPLAY_TOKENS,
+                                                  display_tree=DISPLAY_TREE,
+                                                  display_symbol_table=DISPLAY_SYMBOL_TABLE)
 
                 # Compare expected output with actual output
                 self.assertEqual(actual_output, expected_output)

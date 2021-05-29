@@ -73,11 +73,12 @@ def print_tree_horizontally(current_node, balanced_branches, name_getter, indent
         print_tree_horizontally(child, balanced_branches, name_getter, next_indent, next_last)
 
 def display_tokens(tokens: List['Token']):
-    print("--"*20)
-    print("Tokens:")
+    print("--"*40)
+    print(f"{'Type':<20}{'Line':<10}{'Column':<10}{'Value'}")
+    print("--"*50)
     for token in tokens:
-        print(f"{token.type:20}{token.value}")
-    print("--"*20)
+        print(f"{token.type or '':20}{token.line or '':<10}{token.column or '':<10}{token.value or ''}")
+    print("--"*50)
 
 def display_symbol_table(symbol_table):
     for identifier, [data_type, value] in symbol_table.items():
