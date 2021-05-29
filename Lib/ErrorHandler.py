@@ -18,11 +18,11 @@ def raise_syntax_error(expected, actual, token):
     raise SyntaxError(f"Syntax Error: expected {expected} got {actual} on line {token.line} column {token.column}")
 
 class SemanticError(Exception):
-    def __init__(self, message):            
+    def __init__(self, message):
         super().__init__(message)
 
 class TokenError(Exception):
-     def __init__(self, message):            
+     def __init__(self, message):
         super().__init__(message)
 
 
@@ -37,11 +37,13 @@ class IdentifierError(SemanticError):
 
 
 class SyntaxError(Exception):
-     def __init__(self, message):            
+     def __init__(self, message):
         super().__init__(message)
 
 
 class UndeclaredVariableError(SemanticError):
      def __init__(self, message):            
         super().__init__(message)
+
+
     

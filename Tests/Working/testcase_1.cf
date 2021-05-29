@@ -1,3 +1,10 @@
+/*TEST
+>>Input:
+>>Output:
+Hello world!
+Have a good day!
+>>Description:
+*/
 // Test PRINT statements
 print("Hello world!");
 print("Have a good day!");

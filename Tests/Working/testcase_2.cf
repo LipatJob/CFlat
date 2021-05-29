@@ -1,3 +1,12 @@
+/*TEST
+>>Input:
+hello world
+>>Output:
+Enter a word:
+The word you entered:
+hello world
+>>Description:
+*/
 // Test PRINT before INPUT
 print("Enter a word:");
 

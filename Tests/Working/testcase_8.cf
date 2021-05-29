@@ -1,3 +1,10 @@
+/*TEST
+>>Input:
+>>Output:
+28
+True
+>>Description:
+*/
 // Test arithmetic operators precedence
 int x = 2 + 4 * 6 - (- 8 / 4);
 

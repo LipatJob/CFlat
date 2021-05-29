@@ -1,3 +1,11 @@
+/*TEST
+>>Input:
+>>Output:
+True
+True
+False
+>>Description:
+*/
 // Test NOT and MORE operators
 print(not (5 > 5));
 

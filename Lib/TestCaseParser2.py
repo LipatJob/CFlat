@@ -17,6 +17,8 @@ def parse(testcase: str):
     while current < len(vals) and "description" not in vals[current].lower():
         outputs.append(vals[current])
         current+=1
+    outputs = "\n".join(outputs) + "\n"
+
 
     return inputs, outputs
 

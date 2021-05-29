@@ -36,7 +36,7 @@ class SyntaxAnalyzer:
                 self.next()
                 return cur
         else:
-            raise_syntax_error("or".join(expected_types),
+            raise_syntax_error(" or ".join(expected_types),
                                self.current().type, self.current())
 
     def is_type(self, *args):
@@ -57,7 +57,6 @@ class SyntaxAnalyzer:
         node = Node(NT.BLOCK, [], self.current())
         while not self.is_complete() and not self.is_type(TT.END_OF_FILE, TT.CLOSE_CURLY_BRACES):
             node.parameters.append(self.statement())
-
         return node
 
     # <statement>
@@ -143,7 +142,7 @@ class SyntaxAnalyzer:
         return Node(NT.INPUT, [Node(NT.STRING_LITERAL, [""])])
 
     def for_loop(self):
-        # <for_loop> ::= "for" "(" <declaration> ";" <expression> ";" <expression> ")" "{" <block> "}"
+        # <for_loop> ::= "for" "(" <declaration> ";" <expression> ";" <assignment> ")" "{" <block> "}"
         for_token = self.expect(TT.FOR)
         self.expect(TT.OPEN_PARENTHESIS)
         initialization = self.declaration()
@@ -173,8 +172,7 @@ class SyntaxAnalyzer:
         return Node(NT.WHILE, [condition, block], while_token)
 
     def if_statement(self):
-        # TODO elif and else
-        # <selection_statement> ::= "if" "(" <expression> ")" "{" <block> "}" <elif>
+        # <selection_statement> ::= "if" "(" <expression> ")" "{" <block> "}" <elif>?
         if_token = self.expect(TT.IF)
         self.expect(TT.OPEN_PARENTHESIS)
         condition = self.expression()
@@ -221,15 +219,12 @@ class SyntaxAnalyzer:
         return None
 
     def expression(self, precedence=0):
-        if self.is_type(TT.INPUT):
-            return self.input()
-
         expression_tree = self.term()
         if self.is_type(TT.SEMI_COLON) or self.is_complete(): return expression_tree
 
         while NT.is_binary_operator(self.current().type) and NT.get_precedence(NT.to_node_type(self.current().type)) >= precedence:
             current = self.current()
-
+            
             self.next()
             node_type = NT.to_node_type(current.type)
             next_precedence = NT.get_precedence(node_type)
@@ -262,6 +257,8 @@ class SyntaxAnalyzer:
             node = Node(NT.to_node_type(self.current().type), [
                         self.current().value], self.current())
             self.next()
+        elif self.is_type(TT.INPUT):
+            node = self.input()
         else:
             raise_syntax_error("TERM", self.current().type, self.current())
         return node

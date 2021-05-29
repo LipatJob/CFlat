@@ -1,3 +1,11 @@
+/*TEST
+>>Input:
+c
+>>Output:
+Enter a letter:
+You didn't enter a or b
+>>Description:
+*/
 print("Enter a letter:");
 string l = input();
 

@@ -1,3 +1,9 @@
+/*TEST
+>>Input:
+>>Output:
+-15
+>>Description:
+*/
 // Test arithmetic operators
 int a = 10 / 2 * 3;
 // Test ASSIGNMENT and NEGATE

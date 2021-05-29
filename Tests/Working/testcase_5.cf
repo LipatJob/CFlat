@@ -1,3 +1,14 @@
+/*TEST
+>>Input:
+>>Output:
+5
+4
+3
+2
+1
+0
+>>Description:
+*/
 // Test WHILE loop statement and MORE_EQUAL operator
 int i = 5;
 while(i >= 0) { 
