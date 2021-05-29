@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+Mismatched Data Type Test
+*/
+string stringVar = 1;
