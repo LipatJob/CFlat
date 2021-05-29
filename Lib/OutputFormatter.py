@@ -1,3 +1,4 @@
+from Lib.Token import Token
 from dataclasses import dataclass
 from pprint import pprint
 from typing import List
@@ -70,3 +71,14 @@ def print_tree_horizontally(current_node, balanced_branches, name_getter, indent
         next_last = 'down' if down.index(child) is len(down) - 1 else ''
         next_indent = '{0}{1}{2}'.format(indent, ' ' if 'down' in last else '│', ' ' * len(name_getter(current_node)))
         print_tree_horizontally(child, balanced_branches, name_getter, next_indent, next_last)
+
+def display_tokens(tokens: List['Token']):
+    print("--"*20)
+    print("Tokens:")
+    for token in tokens:
+        print(f"{token.type:20}{token.value}")
+    print("--"*20)
+
+def display_symbol_table(symbol_table):
+    for identifier, [data_type, value] in symbol_table.items():
+        print(f"{data_type} {identifier} {str(value)}")

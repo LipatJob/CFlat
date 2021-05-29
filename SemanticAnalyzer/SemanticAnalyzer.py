@@ -3,11 +3,15 @@ from Lib.Token import Token
 from Lib.ErrorHandler import *
 
 class SemanticAnalyzer:
-    SymbolDictionary = dict()
-
-
+    def __init__(self) -> None:
+        self.SymbolDictionary = dict()
 
     def run(self, root: Node):
+        self.SymbolDictionary = dict()
+        self.analyze(root)
+        return self.SymbolDictionary
+
+    def analyze(self, root: Node):
 
         # Added traversal function code for type checking
         # NOTE: Type checking for Assignment, Declaration and Input still pending
@@ -36,10 +40,10 @@ class SemanticAnalyzer:
         
         # (Code block not yet final)
         if root.value == NT.DECLARATION:
-            self.run(root.parameters[2])
+            self.analyze(root.parameters[2])
         else:
             for x in root.parameters:
-                self.run(x)
+                self.analyze(x)
 
         # DECLARATION STATEMENT
         # Enter code for storing variables

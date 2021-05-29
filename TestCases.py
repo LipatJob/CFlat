@@ -31,13 +31,13 @@ class CompilerTestCase(unittest.TestCase):
                 # Mock inputs as side effect
                 mocked_input.side_effect = inputs
 
-                print("Running Test Case:",filename)
+                print("Running Test Case:", filename)
 
                 # run compiler and expect error
-                actual_output = self.run_compiler(filename, 
-                                        display_tokens=False,
-                                        display_tree=True,
-                                        display_symbol_table=False)
+                actual_output = self.run_compiler(filename,
+                                                  display_tokens=False,
+                                                  display_tree=False,
+                                                  display_symbol_table=True)
 
                 # Compare expected output with actual output
                 self.assertEqual(actual_output, expected_output)
@@ -62,7 +62,7 @@ class CompilerTestCase(unittest.TestCase):
                 # Mock inputs as side effect
                 mocked_input.side_effect = inputs
 
-                print("Running Test Case:",filename)
+                print("Running Test Case:", filename)
                 # run compiler and expect error
                 with self.assertRaises(errorType) as err:
                     self.run_compiler(filename)
@@ -74,7 +74,7 @@ class CompilerTestCase(unittest.TestCase):
                 count += 1
         return count
 
-    def run_compiler(self, file_name, display_tokens = False, display_tree = False, display_symbol_table = False):
+    def run_compiler(self, file_name, display_tokens=False, display_tree=False, display_symbol_table=False):
         lexer = LexicalAnalyzer()
         parser = SyntaxAnalyzer()
         semanticAnalyzer = SemanticAnalyzer()
@@ -86,29 +86,23 @@ class CompilerTestCase(unittest.TestCase):
 
         if display_tokens:
             self.display_tokens(tokens)
-        
+
         if display_tree:
             self.display_tree(tree)
 
         if display_symbol_table:
-            pass
+            self.display_symbol_table(symbol_table)
 
         return evaluator.run(tree)
 
     def display_tokens(self, tokens: List['Token']):
-        print("--"*20)
-        print("Tokens:")
-        for token in tokens:
-            print(f"{token.type:20}{token.value}")
-        print("--"*20)
-        
-
+        OutputFormatter.display_tokens(tokens)
 
     def display_tree(self, tree):
         OutputFormatter.print_tree(tree)
 
     def display_symbol_table(self, symbol_table):
-        pass
+        OutputFormatter.display_symbol_table(symbol_table)
 
 
 class TestSyntaxAnalayzer(CompilerTestCase):
