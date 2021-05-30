@@ -1,0 +1,8 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Token Error. There's no token that has dollar sign. 
+*/
+//single line comment try
+int $num = 1;

@@ -8,7 +8,6 @@ from LexicalAnalyzer.LexicalAnalyzer import LexicalAnalyzer
 from SemanticAnalyzer.SemanticAnalyzer import SemanticAnalyzer
 from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
 from TreeEvaluator.TreeEvaluator import TreeEvaluator
-import Lib.TestCaseParser as InOut
 import Lib.TestCaseParser2 as TestParser
 from Lib.ErrorHandler import *
 from pprint import pprint
@@ -86,7 +85,7 @@ class CompilerTestCase(unittest.TestCase):
                 with self.assertRaises(errorType) as err:
                     self.run_compiler(filename, display_tokens=True)
                 # Display error
-                print(os.path.basename(filename)+":", err.exception)
+                print(err.exception)
                 print(">> Remarks: Success!")
                 print("-"*50)
                 print()
@@ -126,7 +125,7 @@ class CompilerTestCase(unittest.TestCase):
 
 
 class TestSyntaxAnalayzer(CompilerTestCase):
-    @skip(reason="disable")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
         # Get all test case files
@@ -140,6 +139,7 @@ class TestSyntaxAnalayzer(CompilerTestCase):
 
 
 class TestSemanticAnalyzer(CompilerTestCase):
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_semantic_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -152,7 +152,7 @@ class TestSemanticAnalyzer(CompilerTestCase):
 
 
 class TestLexicalAnalyzer(CompilerTestCase):
-    @skip(reason="disable")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -164,7 +164,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
-    @skip(reason="disable")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(
@@ -175,4 +175,5 @@ class TestWorking(CompilerTestCase):
         print(f"Working: Executed {count} test cases")
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()

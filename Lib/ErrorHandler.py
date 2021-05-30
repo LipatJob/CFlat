@@ -9,8 +9,11 @@ def raise_error(error_message):
 def raise_token_error(linecount, charcount):
     raise TokenError("ERROR: Unexpected token! Line: "+ str(linecount)+" Column: "+ str(charcount))
 
+def raise_tokenComment_error(message):
+    raise TokenError("ERROR:"+ message)
+
 def raise_type_error(source: Token):
-    raise TypeError(f"TYPE ERROR: Unexpected data type!\nSOURCE: Line {source.line} Column {source.column}")
+    raise TypeError("ERROR: Unexpected type!")
 
 def raise_identifier_error(character, source: Token):
     raise IdentifierError("IDENTIFIER ERROR: Variable " + character + f" is already in use!\nSOURCE: Line {source.line}, Column {source.column}")

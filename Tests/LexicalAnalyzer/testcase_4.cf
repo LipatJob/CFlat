@@ -1,0 +1,8 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Token Error. Multiline comment didn't close.
+*/
+/*multi line 
+comment try
