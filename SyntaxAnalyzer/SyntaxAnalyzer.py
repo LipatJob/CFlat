@@ -40,7 +40,8 @@ class SyntaxAnalyzer:
                                self.current().type, self.current())
 
     def is_type(self, *args):
-        if self.is_complete(): return False
+        if self.is_complete():
+            return False
         for arg in args:
             if self.current().type == arg:
                 return True
@@ -220,11 +221,12 @@ class SyntaxAnalyzer:
 
     def expression(self, precedence=0):
         expression_tree = self.term()
-        if self.is_type(TT.SEMI_COLON) or self.is_complete(): return expression_tree
+        if self.is_type(TT.SEMI_COLON) or self.is_complete():
+            return expression_tree
 
         while NT.is_binary_operator(self.current().type) and NT.get_precedence(NT.to_node_type(self.current().type)) >= precedence:
             current = self.current()
-            
+
             self.next()
             node_type = NT.to_node_type(current.type)
             next_precedence = NT.get_precedence(node_type)

@@ -14,9 +14,10 @@ from pprint import pprint
 from Lib import OutputFormatter
 import os
 
-DISPLAY_TOKENS = True
-DISPLAY_TREE= False
+DISPLAY_TOKENS = False
+DISPLAY_TREE = False
 DISPLAY_SYMBOL_TABLE = False
+
 
 class CompilerTestCase(unittest.TestCase):
     def run_working_example(self, mocked_input, filenames):
@@ -27,15 +28,20 @@ class CompilerTestCase(unittest.TestCase):
                 test_case = TestParser.parse(f.read())
                 if not test_case:
                     continue
-                inputs, expected_output = test_case
+                inputs, expected_output, description = test_case
 
             # Create subtest
             with self.subTest(filename=filename):
                 # Mock inputs as side effect
                 mocked_input.side_effect = inputs
 
-                print("Running Test Case:", filename)
-
+                print("-"*50)
+                print(f">> Test Case: {count}")
+                print(">> File:", filename)
+                print(">> Description:")
+                print(description)
+                print()
+                print(">> Output:")
                 # run compiler and expect error
                 actual_output = self.run_compiler(filename,
                                                   display_tokens=DISPLAY_TOKENS,
@@ -44,8 +50,9 @@ class CompilerTestCase(unittest.TestCase):
 
                 # Compare expected output with actual output
                 self.assertEqual(actual_output, expected_output)
-
-                print("Success!")
+                print(">> Remarks: Success!")
+                print("-"*50)
+                print()
                 print()
 
                 count += 1
@@ -59,21 +66,29 @@ class CompilerTestCase(unittest.TestCase):
                 test_case = TestParser.parse(f.read())
                 if not test_case:
                     continue
-                inputs, outputs = test_case
+                inputs, outputs, description = test_case
             # Create subtest
             with self.subTest(filename=filename):
                 # Mock inputs as side effect
                 mocked_input.side_effect = inputs
 
-                print("Running Test Case:", filename)
+                print("-"*50)
+                print(f">> Test Case: {count}")
+                print(">> File:", filename)
+                print(">> Description:")
+                print(description)
+                print()
+                print(">> Output:")
                 # run compiler and expect error
                 with self.assertRaises(errorType) as err:
                     self.run_compiler(filename)
-
                 # Display error
                 print(os.path.basename(filename)+":", err.exception)
-                print("Success!")
+                print(">> Remarks: Success!")
+                print("-"*50)
                 print()
+                print()
+
                 count += 1
         return count
 

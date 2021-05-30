@@ -19,6 +19,12 @@ def parse(testcase: str):
         current+=1
     outputs = "\n".join(outputs) + "\n"
 
+    current += 1
+    description = []
+    while current < len(vals):
+        description.append(vals[current])
+        current+=1
+    description = "\n".join(description) 
 
-    return inputs, outputs
+    return inputs, outputs, description
 
