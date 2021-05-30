@@ -12,7 +12,6 @@ class PNode(object):
 
 def print_tree(node):
     tree = pre_process_tree(node)
-    pprint(tree)
     print_tree_lib(tree)
 
 def pre_process_tree(node: Node):

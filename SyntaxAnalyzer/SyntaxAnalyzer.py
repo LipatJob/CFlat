@@ -270,15 +270,3 @@ class SyntaxAnalyzer:
         node = self.expression()
         self.expect(TT.CLOSE_PARENTHESIS)
         return node
-
-    def print_tree(self, current: Node, tabs=0):
-        start = "  "*tabs
-        if current == None:
-            print(";\n")
-        else:
-            if current.value in {NT.INT_LITERAL, NT.BOOL_LITERAL, NT.STRING_LITERAL, NT.IDENTIFIER}:
-                print(start+current.parameters[0])
-            else:
-                print(start+current.value)
-                for node in current.parameters:
-                    self.print_tree(node, tabs + 1)
