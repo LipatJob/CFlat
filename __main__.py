@@ -16,4 +16,5 @@ def __main__():
     semanticAnalyzer.run(tree)
     evaluator.run(tree)
 
-__main__()
+if __name__ == "__main__":
+    __main__()
