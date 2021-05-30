@@ -1,0 +1,13 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Relational operation expects same data type
+*/
+int x = 10;
+if (x > "hello"){
+    print(x);
+}
+else{
+    print("hello");
+}
