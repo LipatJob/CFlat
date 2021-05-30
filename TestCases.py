@@ -36,11 +36,12 @@ class CompilerTestCase(unittest.TestCase):
                 mocked_input.side_effect = inputs
 
                 print("-"*50)
-                print(f">> Test Case: {count}")
+                print(f">> Test: {count}")
                 print(">> File:", filename)
                 print(">> Description:")
-                print(description)
-                print()
+                if len(description) > 0:
+                    print(description)
+                    print()
                 print(">> Output:")
                 # run compiler and expect error
                 actual_output = self.run_compiler(filename,
@@ -73,11 +74,12 @@ class CompilerTestCase(unittest.TestCase):
                 mocked_input.side_effect = inputs
 
                 print("-"*50)
-                print(f">> Test Case: {count}")
+                print(f">> Test: {count}")
                 print(">> File:", filename)
                 print(">> Description:")
-                print(description)
-                print()
+                if len(description) > 0:
+                    print(description)
+                    print()
                 print(">> Output:")
                 # run compiler and expect error
                 with self.assertRaises(errorType) as err:
