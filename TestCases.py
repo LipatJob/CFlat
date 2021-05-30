@@ -1,18 +1,19 @@
-from unittest.case import skip
-from Lib.Token import Token
 import glob
-from typing import List
+import os
 import unittest
+from pprint import pprint
+from typing import List
+from unittest.case import skip
 from unittest.mock import patch
+
+import Lib.TestCaseParser2 as TestParser
 from LexicalAnalyzer.LexicalAnalyzer import LexicalAnalyzer
+from Lib import OutputFormatter
+from Lib.ErrorHandler import *
+from Lib.Token import Token
 from SemanticAnalyzer.SemanticAnalyzer import SemanticAnalyzer
 from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
 from TreeEvaluator.TreeEvaluator import TreeEvaluator
-import Lib.TestCaseParser2 as TestParser
-from Lib.ErrorHandler import *
-from pprint import pprint
-from Lib import OutputFormatter
-import os
 
 DISPLAY_TOKENS = False
 DISPLAY_TREE = False
@@ -139,7 +140,7 @@ class TestSyntaxAnalayzer(CompilerTestCase):
 
 
 class TestSemanticAnalyzer(CompilerTestCase):
-    #@skip("Test case disabled")
+    # @skip("Test case disabled")
     @patch("builtins.input")
     def test_semantic_analyzer(self, mocked_input):
         filenames = glob.glob(
