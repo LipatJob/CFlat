@@ -156,7 +156,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
         filenames = glob.glob(
             "Tests/LexicalAnalyzer/**/testcase*.cf", recursive=True)
 
-        count = self.run_counter_example(mocked_input, filenames, Exception)
+        count = self.run_counter_example(mocked_input, filenames, TokenError)
 
         print(f"Lexical Analyzer: Executed {count} test cases")
 
