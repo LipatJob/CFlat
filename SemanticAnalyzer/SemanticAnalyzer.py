@@ -126,9 +126,9 @@ class SemanticAnalyzer:
         # FOR LOOP
         elif root.value == NT.FOR:
             if root.parameters[1].expression_type != ET.BOOL:
-                raise_type_error(root.token_source)
+                raise_type_error(root.parameters[1].token_source)
 
         # WHILE LOOP
         elif root.value == NT.WHILE:
             if root.parameters[0].expression_type != ET.BOOL:
-                raise_type_error(root.token_source)
+                raise_type_error(root.parameters[0].token_source)
