@@ -1,0 +1,11 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Token Error. There's no token that uses excalamation point aside from "!=". 
+*/
+/*multi line 
+comment try*/
+if (!haha == 5){
+    print("hello");
+}

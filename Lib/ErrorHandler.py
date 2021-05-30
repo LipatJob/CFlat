@@ -5,6 +5,9 @@ def raise_error(error_message):
 def raise_token_error(linecount,charcount):
     raise TokenError("ERROR: Unexpected token! Line: "+ str(linecount)+" Column: "+ str(charcount))
 
+def raise_tokenComment_error(message):
+    raise TokenError("ERROR:"+ message)
+
 def raise_type_error():
     raise TypeError("ERROR: Unexpected type!")
 

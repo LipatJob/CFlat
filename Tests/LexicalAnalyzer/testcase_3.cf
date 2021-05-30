@@ -1,0 +1,9 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Token Error. There's no token that has period. 
+*/
+/*multi line 
+comment try*/
+print("hello\nworld").

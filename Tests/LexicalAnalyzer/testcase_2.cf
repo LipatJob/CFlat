@@ -1,0 +1,9 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Token Error. There's no token that has underscore. 
+*/
+/*multi line 
+comment try*/
+int _num = 1;
