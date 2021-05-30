@@ -2,6 +2,6 @@
 >>Input:
 >>Output:
 >>Description:
-Mismatched Data Type Test
+ERROR TYPE: Mismatched Data Type
 */
 int num1 = "fifteen";

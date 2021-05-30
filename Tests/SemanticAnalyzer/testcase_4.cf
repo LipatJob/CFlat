@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Variable {x} is not defined
+*/
+int pcs = 5; int qty = pcs * total;

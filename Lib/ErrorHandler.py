@@ -8,11 +8,11 @@ def raise_token_error(linecount,charcount):
 def raise_type_error():
     raise TypeError("ERROR: Unexpected type!")
 
-def raise_identifier_error():
-    raise IdentifierError("ERROR: Variables is already in use!")
+def raise_identifier_error(character):
+    raise IdentifierError("ERROR: Variable " + character + " is already in use!")
 
 def raise_undeclaredVariable_error(character):
-    raise UndeclaredVariableError("ERROR: Variable", character, "is not defined!")
+    raise UndeclaredVariableError("ERROR: Variable " + character + " is not defined!")
 
 def raise_syntax_error(expected, actual, token):
     raise SyntaxError(f"Syntax Error: expected {expected} got {actual} on line {token.line} column {token.column}")

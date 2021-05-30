@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Identifier {x} cannot be declared more than once
+*/
+int x = 10; int x = 20;

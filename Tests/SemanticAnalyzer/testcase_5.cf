@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Arithmetic expression expects integer type
+*/
+string pcs = "hello"; int total = 50; int qty = 20 * pcs;

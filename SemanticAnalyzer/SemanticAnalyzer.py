@@ -32,7 +32,7 @@ class SemanticAnalyzer:
                 
                 # Check if identifier is in the SymbolDictionary
                 if root.parameters[0] not in self.SymbolDictionary:
-                    raise_undeclaredVariable_error(root.value)
+                    raise_undeclaredVariable_error(root.parameters[0])
                 else:
                     data_type = self.SymbolDictionary[root.parameters[0]][0].value
                     root.expression_type = ET.to_expresion_type(data_type)
@@ -58,26 +58,15 @@ class SemanticAnalyzer:
             elif root.parameters[0].value == NT.BOOL_DATA_TYPE and root.parameters[2].expression_type != ET.BOOL:
                 raise_type_error()
             else:
-                if len(self.SymbolDictionary) == 0 or root.parameters[1] not in self.SymbolDictionary:
+                if len(self.SymbolDictionary) == 0 or root.parameters[1].parameters[0] not in self.SymbolDictionary:
                     # Add values into SymbolTable
-
-                    # (Code block not yet final)
                     self.SymbolDictionary[root.parameters[1].parameters[0]] = [root.parameters[0], root.parameters[2]]
-                    
-                    # self.SymbolTable.__add__(root.parameters[1])
                 else:
                     # Find current identifier value in SymbolTable
-
-                    # (Code block not yet final)
-                    if root.parameters[1] in self.SymbolDictionary:
-                        raise_identifier_error()
-                    elif root.parameters[1] not in self.SymbolDictionary:
-                        raise_undeclaredVariable_error(root.parameters[1])
-
-                    # if root.parameters[1] in self.SymbolTable:
-                    #     raise_identifier_error()
-                    # elif root.parameters[1] not in self.SymbolTable:    
-                    #     raise_undeclaredVariable_error(root.parameters[1])
+                    if root.parameters[1].parameters[0] in self.SymbolDictionary:
+                        raise_identifier_error(root.parameters[1].parameters[0])
+                    elif root.parameters[1].parameters[0] not in self.SymbolDictionary:
+                        raise_undeclaredVariable_error(root.parameters[1].parameters[0])
             return
 
         # CHECK EXPRESSION (Code block not yet final)
