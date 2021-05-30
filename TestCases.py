@@ -1,3 +1,4 @@
+from unittest.case import skip
 from Lib.Token import Token
 import glob
 from typing import List
@@ -83,7 +84,7 @@ class CompilerTestCase(unittest.TestCase):
                 print(">> Output:")
                 # run compiler and expect error
                 with self.assertRaises(errorType) as err:
-                    self.run_compiler(filename)
+                    self.run_compiler(filename, display_tokens=True)
                 # Display error
                 print(os.path.basename(filename)+":", err.exception)
                 print(">> Remarks: Success!")
@@ -101,15 +102,14 @@ class CompilerTestCase(unittest.TestCase):
         evaluator = TreeEvaluator()
 
         tokens = lexer.run(file_name)
-        tree = parser.run(tokens)
-        symbol_table = semanticAnalyzer.run(tree)
-
         if display_tokens:
             self.display_tokens(tokens)
 
+        tree = parser.run(tokens)
         if display_tree:
             self.display_tree(tree)
 
+        symbol_table = semanticAnalyzer.run(tree)
         if display_symbol_table:
             self.display_symbol_table(symbol_table)
 
@@ -126,6 +126,7 @@ class CompilerTestCase(unittest.TestCase):
 
 
 class TestSyntaxAnalayzer(CompilerTestCase):
+    @skip(reason="disable")
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
         # Get all test case files
@@ -151,6 +152,7 @@ class TestSemanticAnalyzer(CompilerTestCase):
 
 
 class TestLexicalAnalyzer(CompilerTestCase):
+    @skip(reason="disable")
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -162,6 +164,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
+    @skip(reason="disable")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(

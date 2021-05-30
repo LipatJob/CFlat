@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Arithmetic expression expects integer type
+*/
+string x = 1 / 2;

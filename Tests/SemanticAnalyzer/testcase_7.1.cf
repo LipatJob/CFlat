@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Logical expression expects boolean type
+*/
+bool varName = True or 1;
