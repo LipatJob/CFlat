@@ -154,6 +154,7 @@ class LexicalAnalyzer:
                                 total_char_count+=1
                                 break
                         if not cur_ch:
+                             cur_f.close()
                              raise_tokenComment_error("Multi line comment didn't end.")
                     continue
                 else:
@@ -191,6 +192,7 @@ class LexicalAnalyzer:
                     cur_token = self.buffer_to_string(buffer)
                     return cur_token
                 else:
+                    cur_f.close()
                     raise_token_error(line_count,char_count)
                 
             elif cur_ch == '>' or cur_ch == '<':
@@ -227,4 +229,5 @@ class LexicalAnalyzer:
 
             else:
                 char_count=total_char_count
+                cur_f.close()
                 raise_token_error(line_count,char_count)
