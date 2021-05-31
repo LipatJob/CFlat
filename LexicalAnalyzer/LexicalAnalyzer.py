@@ -144,6 +144,7 @@ class LexicalAnalyzer:
                         total_char_count+=1
                         if cur_ch=="\n":
                             line_count+=1
+                            total_char_count=0
                         if cur_ch =="*":
                             buffer.append(cur_ch)
                             cur_ch = cur_f.read(1)
@@ -155,8 +156,8 @@ class LexicalAnalyzer:
                                 break
                         if not cur_ch:
                              cur_f.close()
-                             raise_tokenComment_error("Multi line comment didn't end.")
-                    continue
+                             char_count=total_char_count
+                             raise_tokenComment_error("Multi line comment didn't end.", line_count, char_count)
                 else:
                     cur_token = self.buffer_to_string(buffer)
                     cur_token_type = TokenType.SLASH
