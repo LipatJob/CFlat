@@ -84,7 +84,9 @@ class CompilerTestCase(unittest.TestCase):
                 print(">> Output:")
                 # run compiler and expect error
                 with self.assertRaises(errorType) as err:
-                    self.run_compiler(filename, display_tokens=True)
+                    self.run_compiler(filename, display_tokens=DISPLAY_TOKENS,
+                                                  display_tree=DISPLAY_TREE,
+                                                  display_symbol_table=DISPLAY_SYMBOL_TABLE)
                 # Display error
                 print(err.exception)
                 print(">> Remarks: Success!")
@@ -126,7 +128,7 @@ class CompilerTestCase(unittest.TestCase):
 
 
 class TestSyntaxAnalayzer(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
         # Get all test case files
@@ -140,7 +142,7 @@ class TestSyntaxAnalayzer(CompilerTestCase):
 
 
 class TestSemanticAnalyzer(CompilerTestCase):
-    # @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_semantic_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -153,7 +155,7 @@ class TestSemanticAnalyzer(CompilerTestCase):
 
 
 class TestLexicalAnalyzer(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -165,7 +167,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(
