@@ -11,9 +11,11 @@ cur_ch = None
 buffer = []
 cur_token_type = -1
 cur_f = None
+addline=False
 
 class LexicalAnalyzer:
     def run(self, fileName: str) -> List[Token]:
+        global addline
         global list_tokens
         global char_count
         global total_char_count
@@ -24,6 +26,7 @@ class LexicalAnalyzer:
         global cur_token_type
         global cur_f
 
+        addline=False
         list_tokens = []
         char_count = 1
         total_char_count = 1
@@ -51,6 +54,7 @@ class LexicalAnalyzer:
         return ''.join(buffer)
 
     def next(self):
+        global addline
         global list_tokens
         global char_count
         global total_char_count
@@ -60,6 +64,10 @@ class LexicalAnalyzer:
         global buffer
         global cur_token_type
         global cur_f
+        if addline==True:
+            line_count+=1
+            addline=False
+
         while True:
             buffer.clear()
         
@@ -112,6 +120,9 @@ class LexicalAnalyzer:
                 cur_ch = cur_f.read(1)
                 total_char_count +=1
                 while cur_ch and cur_ch != '\"':
+                    if cur_ch=="\n":
+                        addline=True
+                        total_char_count=0
                     buffer.append(cur_ch)
                     if cur_ch == '\\':                      
                         buffer.append(cur_f.read(1))        
