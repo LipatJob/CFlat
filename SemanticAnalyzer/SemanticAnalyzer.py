@@ -12,7 +12,7 @@ class SemanticAnalyzer:
         return self.SymbolDictionary
 
     def analyze(self, root: Node):
-
+        print(self.SymbolDictionary)
         # Added traversal function code for type checking
         # NOTE: Type checking for Assignment, Declaration and Input still pending
 
@@ -60,7 +60,7 @@ class SemanticAnalyzer:
             else:
                 if len(self.SymbolDictionary) == 0 or root.parameters[1].parameters[0] not in self.SymbolDictionary:
                     # Add values into SymbolTable
-                    self.SymbolDictionary[root.parameters[1].parameters[0]] = [root.parameters[0], root.parameters[2]]
+                    self.SymbolDictionary[root.parameters[1].parameters[0]] = [root.parameters[0].value, root.parameters[2].parameters[0]]
                 else:
                     # Find current identifier value in SymbolTable
                     if root.parameters[1].parameters[0] in self.SymbolDictionary:
