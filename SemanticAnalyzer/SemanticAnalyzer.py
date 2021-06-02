@@ -34,7 +34,7 @@ class SemanticAnalyzer:
                 if root.parameters[0] not in self.SymbolDictionary:
                     raise_undeclaredVariable_error(root.parameters[0], root.token_source)
                 else:
-                    data_type = self.SymbolDictionary[root.parameters[0]][0].value
+                    data_type = self.SymbolDictionary[root.parameters[0]][0]
                     root.expression_type = ET.to_expresion_type(data_type)
             return
         
