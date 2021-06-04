@@ -2,6 +2,6 @@
 >>Input:
 >>Output:
 >>Description:
-
+Invalid type when declaring boolean variable
 */
 bool a = 1;

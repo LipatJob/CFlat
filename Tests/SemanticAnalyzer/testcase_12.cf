@@ -2,7 +2,7 @@
 >>Input:
 >>Output:
 >>Description:
-
+equality operator data types not equal
 */
 bool a = 1 == False;
 

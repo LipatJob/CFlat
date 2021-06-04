@@ -2,7 +2,7 @@
 >>Input:
 >>Output:
 >>Description:
-
+using integer negation on boolean type
 */
 int a = -False;
 

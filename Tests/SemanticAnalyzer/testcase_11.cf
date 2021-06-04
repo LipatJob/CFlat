@@ -2,7 +2,7 @@
 >>Input:
 >>Output:
 >>Description:
-
+invalid left hand side in arithmetic operators
 */
 int a = False + 1;
 
