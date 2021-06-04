@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for Lib\OutputFormatter.py: 24%</title>
+    <title>Coverage for Lib\OutputFormatter.py: 32%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>Lib\OutputFormatter.py</b> :
-            <span class="pc_cov">24%</span>
+            <span class="pc_cov">32%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            59 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">14 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">45 missing</button>
+            76 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">24 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">52 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -133,15 +133,33 @@
     <p id="t79" class="mis show_mis"><span class="n"><a href="#t79">79</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">f"{token.type or '':20}{token.line or '':&lt;10}{token.column or '':&lt;10}{token.value or ''}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t80" class="mis show_mis"><span class="n"><a href="#t80">80</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">50</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t81" class="pln"><span class="n"><a href="#t81">81</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t82" class="run"><span class="n"><a href="#t82">82</a></span><span class="t"><span class="key">def</span> <span class="nam">display_symbol_table</span><span class="op">(</span><span class="nam">symbol_table</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t83" class="mis show_mis"><span class="n"><a href="#t83">83</a></span><span class="t">    <span class="key">for</span> <span class="nam">identifier</span><span class="op">,</span> <span class="op">[</span><span class="nam">data_type</span><span class="op">,</span> <span class="nam">value</span><span class="op">]</span> <span class="key">in</span> <span class="nam">symbol_table</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t84" class="mis show_mis"><span class="n"><a href="#t84">84</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">f"{data_type} {identifier} {str(value)}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t82" class="run"><span class="n"><a href="#t82">82</a></span><span class="t"><span class="key">def</span> <span class="nam">display_semantic_symbol_table</span><span class="op">(</span><span class="nam">symbol_table</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t83" class="run"><span class="n"><a href="#t83">83</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t84" class="run"><span class="n"><a href="#t84">84</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"Semantic Symbol Table"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t85" class="run"><span class="n"><a href="#t85">85</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">30</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t86" class="run"><span class="n"><a href="#t86">86</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">f"{'Data Type':&lt;20} {'Identifier':&lt;20}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t87" class="run"><span class="n"><a href="#t87">87</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">30</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t88" class="run"><span class="n"><a href="#t88">88</a></span><span class="t">    <span class="key">for</span> <span class="nam">identifier</span><span class="op">,</span> <span class="op">[</span><span class="nam">data_type</span><span class="op">,</span> <span class="nam">_</span><span class="op">]</span> <span class="key">in</span> <span class="nam">symbol_table</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t89" class="run"><span class="n"><a href="#t89">89</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">f"{data_type:&lt;20} {identifier:&lt;20}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t90" class="run"><span class="n"><a href="#t90">90</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">30</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t91" class="run"><span class="n"><a href="#t91">91</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t92" class="pln"><span class="n"><a href="#t92">92</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t93" class="run"><span class="n"><a href="#t93">93</a></span><span class="t"><span class="key">def</span> <span class="nam">display_evaluated_symbol_table</span><span class="op">(</span><span class="nam">symbol_table</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t94" class="mis show_mis"><span class="n"><a href="#t94">94</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t95" class="mis show_mis"><span class="n"><a href="#t95">95</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"Evaluated Symbol Table"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t96" class="mis show_mis"><span class="n"><a href="#t96">96</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">40</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t97" class="mis show_mis"><span class="n"><a href="#t97">97</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">f"{'Data Type':&lt;20} {'Identifier':&lt;20} {'Value'}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t98" class="mis show_mis"><span class="n"><a href="#t98">98</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">40</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t99" class="mis show_mis"><span class="n"><a href="#t99">99</a></span><span class="t">    <span class="key">for</span> <span class="nam">identifier</span><span class="op">,</span> <span class="nam">value</span><span class="op">,</span> <span class="nam">data_type</span> <span class="key">in</span> <span class="nam">symbol_table</span><span class="op">.</span><span class="nam">table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t100" class="mis show_mis"><span class="n"><a href="#t100">100</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">f"{data_type:&lt;20} {identifier:&lt;20} {str(value)}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t101" class="mis show_mis"><span class="n"><a href="#t101">101</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="str">"--"</span><span class="op">*</span><span class="num">40</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t102" class="mis show_mis"><span class="n"><a href="#t102">102</a></span><span class="t">    <span class="nam">print</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-05-30 08:38 +0800
+            created at 2021-06-04 19:53 +0800
         </p>
     </div>
 </div>
