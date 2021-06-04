@@ -1,0 +1,14 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Relational operation expects same data type
+*/
+string one = "good";
+string two = "bad";
+if (one == 2){
+    print("nice");
+}
+else{
+    print("meh");
+}
