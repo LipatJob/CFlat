@@ -1,0 +1,9 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Arithmetic expression expects integer type
+*/
+int num1 = 1;
+int num2 = 5;
+string x = num1 * num2;

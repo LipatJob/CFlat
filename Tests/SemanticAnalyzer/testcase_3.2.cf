@@ -1,0 +1,7 @@
+/*TEST
+>>Input:
+>>Output:
+>>Description:
+ERROR TYPE: Identifier {x} cannot be declared more than once
+*/
+string test = "case"; string test = "case";
