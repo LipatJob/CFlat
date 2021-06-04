@@ -13,7 +13,7 @@ def raise_tokenDidntClose_error(message,linecount, charcount):
     raise TokenError("ERROR:"+ message+" Line: "+ str(linecount)+" Column: "+ str(charcount))
 
 def raise_type_error(source: Token):
-    raise TypeError(f"ERROR: Unexpected type!\nSOURCE: Line {source.line} Column {source.column}")
+    raise TypeError(f"ERROR: Unexpected data type!\nSOURCE: Line {source.line} Column {source.column}")
 
 def raise_identifier_error(character, source: Token):
     raise IdentifierError("IDENTIFIER ERROR: Variable " + character + f" is already in use!\nSOURCE: Line {source.line}, Column {source.column}")

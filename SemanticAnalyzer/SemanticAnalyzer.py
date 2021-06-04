@@ -12,9 +12,6 @@ class SemanticAnalyzer:
         return self.SymbolDictionary
 
     def analyze(self, root: Node):
-        # Added traversal function code for type checking
-        # NOTE: Type checking for Assignment, Declaration and Input still pending
-
         if root == None or len(root.parameters) == 0: return
 
         # Terminal expressions for leaf nodes
@@ -27,8 +24,7 @@ class SemanticAnalyzer:
                 root.expression_type = ET.STRING
             elif root.value == NT.BOOL_LITERAL:
                 root.expression_type = ET.BOOL
-            elif root.value == NT.IDENTIFIER:
-                
+            elif root.value == NT.IDENTIFIER:          
                 # Check if identifier is in the SymbolDictionary
                 if root.parameters[0] not in self.SymbolDictionary:
                     raise_undeclaredVariable_error(root.parameters[0], root.token_source)
@@ -36,8 +32,7 @@ class SemanticAnalyzer:
                     data_type = self.SymbolDictionary[root.parameters[0]][0]
                     root.expression_type = ET.to_expresion_type(data_type)
             return
-        
-        # (Code block not yet final)
+
         if root.value == NT.DECLARATION:
             self.analyze(root.parameters[2])
         else:
@@ -68,7 +63,7 @@ class SemanticAnalyzer:
                         raise_undeclaredVariable_error(root.parameters[1].parameters[0], root.token_source)
             return
 
-        # CHECK EXPRESSION (Code block not yet final)
+        # CHECK EXPRESSION
         if root.parameters[0] == NT.INT_LITERAL:
             root.expression_type = ET.INT
 
@@ -91,10 +86,19 @@ class SemanticAnalyzer:
             
         # EQUALITY OPERATORS
         elif root.value in {NT.EQUAL, NT.NOT_EQUAL}:
-            if root.parameters[0].expression_type != root.parameters[1].expression_type:
-                raise_type_error(root.token_source)
+            if root.parameters[0].expression_type != ET.BOOL:
+                raise_type_error(root.parameters[0].token_source)
+            elif root.parameters[1].expression_type != ET.BOOL:
+                raise_type_error(root.parameters[1].token_source)
             else:
                 root.expression_type = ET.BOOL
+            """
+            if root.parameters[0].expression_type != root.parameters[1].expression_type:
+                raise_type_error(root.parameters[0].token_source)
+            else:
+                root.expression_type = ET.BOOL
+            """
+
         # RELATIONAL OPERATORS      
         elif root.value in {NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
             if root.parameters[0].expression_type != ET.INT or root.parameters[1].expression_type != ET.INT:
@@ -120,7 +124,11 @@ class SemanticAnalyzer:
         # SELECTION STATEMENTS
         elif root.value in {NT.IF, NT.ELIF}:
             if root.parameters[0].expression_type != ET.BOOL:
-                raise_type_error(root.token_source)
+                raise_type_error(root.parameters[0].token_source)
+            # elif root.parameters[0].parameters[0].expression_type != ET.BOOL:
+            #     raise_type_error(root.parameters[0].parameters[0].token_source)
+            # elif root.parameters[0].parameters[1].expression_type != ET.BOOL:
+            #     raise_type_error(root.parameters[0].parameters[1].token_source)
 
         # FOR LOOP
         elif root.value == NT.FOR:
