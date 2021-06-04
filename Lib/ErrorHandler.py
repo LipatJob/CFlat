@@ -9,7 +9,7 @@ def raise_error(error_message):
 def raise_token_error(linecount, charcount):
     raise TokenError("ERROR: Unexpected token! Line: "+ str(linecount)+" Column: "+ str(charcount))
 
-def raise_tokenComment_error(message,linecount, charcount):
+def raise_tokenDidntClose_error(message,linecount, charcount):
     raise TokenError("ERROR:"+ message+" Line: "+ str(linecount)+" Column: "+ str(charcount))
 
 def raise_type_error(source: Token):

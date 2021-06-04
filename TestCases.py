@@ -128,7 +128,7 @@ class CompilerTestCase(unittest.TestCase):
 
 
 class TestSyntaxAnalayzer(CompilerTestCase):
-    #@skip("Test case disabled")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
         # Get all test case files
@@ -155,7 +155,7 @@ class TestSemanticAnalyzer(CompilerTestCase):
 
 
 class TestLexicalAnalyzer(CompilerTestCase):
-    #@skip("Test case disabled")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -167,7 +167,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
-    #@skip("Test case disabled")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(
