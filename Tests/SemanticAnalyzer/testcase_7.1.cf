@@ -4,4 +4,4 @@
 >>Description:
 ERROR TYPE: Logical expression expects boolean type
 */
-bool varName = True or 1;
+bool varName = 1 or True;
