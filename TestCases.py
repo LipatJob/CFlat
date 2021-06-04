@@ -17,7 +17,7 @@ from TreeEvaluator.TreeEvaluator import TreeEvaluator
 
 DISPLAY_TOKENS = False
 DISPLAY_TREE = False
-DISPLAY_SYMBOL_TABLE = True
+DISPLAY_SYMBOL_TABLE = False
 DISPLAY_EVALUATED_TABLE = False
 
 
