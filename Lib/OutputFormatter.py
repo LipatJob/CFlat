@@ -79,6 +79,24 @@ def display_tokens(tokens: List['Token']):
         print(f"{token.type or '':20}{token.line or '':<10}{token.column or '':<10}{token.value or ''}")
     print("--"*50)
 
-def display_symbol_table(symbol_table):
-    for identifier, [data_type, value] in symbol_table.items():
-        print(f"{data_type} {identifier} {str(value)}")
+def display_semantic_symbol_table(symbol_table):
+    print()
+    print("Semantic Symbol Table")
+    print("--"*30)
+    print(f"{'Data Type':<20} {'Identifier':<20}")
+    print("--"*30)
+    for identifier, [data_type, _] in symbol_table.items():
+        print(f"{data_type:<20} {identifier:<20}")
+    print("--"*30)
+    print()
+
+def display_evaluated_symbol_table(symbol_table):
+    print()
+    print("Evaluated Symbol Table")
+    print("--"*40)
+    print(f"{'Data Type':<20} {'Identifier':<20} {'Value'}")
+    print("--"*40)
+    for identifier, value, data_type in symbol_table.table:
+        print(f"{data_type:<20} {identifier:<20} {str(value)}")
+    print("--"*40)
+    print()

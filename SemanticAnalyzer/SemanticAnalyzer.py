@@ -12,7 +12,6 @@ class SemanticAnalyzer:
         return self.SymbolDictionary
 
     def analyze(self, root: Node):
-        print(self.SymbolDictionary)
         # Added traversal function code for type checking
         # NOTE: Type checking for Assignment, Declaration and Input still pending
 

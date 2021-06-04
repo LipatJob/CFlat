@@ -17,7 +17,8 @@ from TreeEvaluator.TreeEvaluator import TreeEvaluator
 
 DISPLAY_TOKENS = False
 DISPLAY_TREE = False
-DISPLAY_SYMBOL_TABLE = False
+DISPLAY_SYMBOL_TABLE = True
+DISPLAY_EVALUATED_TABLE = False
 
 
 class CompilerTestCase(unittest.TestCase):
@@ -48,7 +49,8 @@ class CompilerTestCase(unittest.TestCase):
                 actual_output = self.run_compiler(filename,
                                                   display_tokens=DISPLAY_TOKENS,
                                                   display_tree=DISPLAY_TREE,
-                                                  display_symbol_table=DISPLAY_SYMBOL_TABLE)
+                                                  display_symbol_table=DISPLAY_SYMBOL_TABLE,
+                                                  display_evaluated_table=DISPLAY_EVALUATED_TABLE)
 
                 # Compare expected output with actual output
                 self.assertEqual(actual_output, expected_output)
@@ -86,7 +88,8 @@ class CompilerTestCase(unittest.TestCase):
                 with self.assertRaises(errorType) as err:
                     self.run_compiler(filename, display_tokens=DISPLAY_TOKENS,
                                                   display_tree=DISPLAY_TREE,
-                                                  display_symbol_table=DISPLAY_SYMBOL_TABLE)
+                                                  display_symbol_table=DISPLAY_SYMBOL_TABLE,
+                                                  display_evaluated_table=DISPLAY_EVALUATED_TABLE)
                 # Display error
                 print(err.exception)
                 print(">> Remarks: Success!")
@@ -97,7 +100,7 @@ class CompilerTestCase(unittest.TestCase):
                 count += 1
         return count
 
-    def run_compiler(self, file_name, display_tokens=False, display_tree=False, display_symbol_table=False):
+    def run_compiler(self, file_name, display_tokens=False, display_tree=False, display_symbol_table=False, display_evaluated_table=False):
         lexer = LexicalAnalyzer()
         parser = SyntaxAnalyzer()
         semanticAnalyzer = SemanticAnalyzer()
@@ -115,7 +118,12 @@ class CompilerTestCase(unittest.TestCase):
         if display_symbol_table:
             self.display_symbol_table(symbol_table)
 
-        return evaluator.run(tree)
+        output = evaluator.run(tree)
+        if display_evaluated_table:
+            OutputFormatter.display_evaluated_symbol_table(evaluator.symbol_table)
+
+        return output
+
 
     def display_tokens(self, tokens: List['Token']):
         OutputFormatter.display_tokens(tokens)
@@ -124,11 +132,13 @@ class CompilerTestCase(unittest.TestCase):
         OutputFormatter.print_tree(tree)
 
     def display_symbol_table(self, symbol_table):
-        OutputFormatter.display_symbol_table(symbol_table)
+        OutputFormatter.display_semantic_symbol_table(symbol_table)
 
+    def display_evaluated_symbol_table(self, symbol_table):
+        OutputFormatter.display_evaluated_symbol_table(symbol_table)
 
 class TestSyntaxAnalayzer(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
         # Get all test case files
@@ -155,7 +165,7 @@ class TestSemanticAnalyzer(CompilerTestCase):
 
 
 class TestLexicalAnalyzer(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -167,7 +177,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(
