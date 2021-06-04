@@ -135,9 +135,6 @@ class SyntaxAnalyzer:
         # <input> ::= "input" "(" <expression> ")"
         self.expect(TT.INPUT)
         self.expect(TT.OPEN_PARENTHESIS)
-        parameters = []
-        if self.current().type != TT.CLOSE_PARENTHESIS:
-            parameters.append(self.expression())
         self.expect(TT.CLOSE_PARENTHESIS)
 
         return Node(NT.INPUT, [Node(NT.STRING_LITERAL, [""])])
