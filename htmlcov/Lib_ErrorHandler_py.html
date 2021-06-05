@@ -67,7 +67,7 @@
     <p id="t13" class="run"><span class="n"><a href="#t13">13</a></span><span class="t">    <span class="key">raise</span> <span class="nam">TokenError</span><span class="op">(</span><span class="str">"ERROR:"</span><span class="op">+</span> <span class="nam">message</span><span class="op">+</span><span class="str">" Line: "</span><span class="op">+</span> <span class="nam">str</span><span class="op">(</span><span class="nam">linecount</span><span class="op">)</span><span class="op">+</span><span class="str">" Column: "</span><span class="op">+</span> <span class="nam">str</span><span class="op">(</span><span class="nam">charcount</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t14" class="pln"><span class="n"><a href="#t14">14</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t15" class="run"><span class="n"><a href="#t15">15</a></span><span class="t"><span class="key">def</span> <span class="nam">raise_type_error</span><span class="op">(</span><span class="nam">source</span><span class="op">:</span> <span class="nam">Token</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t">    <span class="key">raise</span> <span class="nam">TypeError</span><span class="op">(</span><span class="str">f"ERROR: Unexpected type!\nSOURCE: Line {source.line} Column {source.column}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t">    <span class="key">raise</span> <span class="nam">TypeError</span><span class="op">(</span><span class="str">f"ERROR: Unexpected data type!\nSOURCE: Line {source.line} Column {source.column}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t17" class="pln"><span class="n"><a href="#t17">17</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t18" class="run"><span class="n"><a href="#t18">18</a></span><span class="t"><span class="key">def</span> <span class="nam">raise_identifier_error</span><span class="op">(</span><span class="nam">character</span><span class="op">,</span> <span class="nam">source</span><span class="op">:</span> <span class="nam">Token</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t19" class="run"><span class="n"><a href="#t19">19</a></span><span class="t">    <span class="key">raise</span> <span class="nam">IdentifierError</span><span class="op">(</span><span class="str">"IDENTIFIER ERROR: Variable "</span> <span class="op">+</span> <span class="nam">character</span> <span class="op">+</span> <span class="str">f" is already in use!\nSOURCE: Line {source.line}, Column {source.column}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -113,7 +113,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-06-04 19:53 +0800
+            created at 2021-06-05 08:58 +0800
         </p>
     </div>
 </div>
