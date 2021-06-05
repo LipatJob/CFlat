@@ -15,11 +15,10 @@ from SemanticAnalyzer.SemanticAnalyzer import SemanticAnalyzer
 from SyntaxAnalyzer.SyntaxAnalyzer import SyntaxAnalyzer
 from TreeEvaluator.TreeEvaluator import TreeEvaluator
 
-DISPLAY_TOKENS = False
+DISPLAY_TOKENS = True
 DISPLAY_TREE = False
 DISPLAY_SYMBOL_TABLE = False
 DISPLAY_EVALUATED_TABLE = False
-
 
 class CompilerTestCase(unittest.TestCase):
     def run_working_example(self, mocked_input, filenames):
@@ -138,7 +137,7 @@ class CompilerTestCase(unittest.TestCase):
         OutputFormatter.display_evaluated_symbol_table(symbol_table)
 
 class TestSyntaxAnalayzer(CompilerTestCase):
-    #@skip("Test case disabled")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_syntax_analyzer(self, mocked_input):
         # Get all test case files
@@ -165,7 +164,7 @@ class TestSemanticAnalyzer(CompilerTestCase):
 
 
 class TestLexicalAnalyzer(CompilerTestCase):
-    #@skip("Test case disabled")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_lexical_analyzer(self, mocked_input):
         filenames = glob.glob(
@@ -177,7 +176,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
-    #@skip("Test case disabled")
+    @skip("Test case disabled")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(
