@@ -86,6 +86,7 @@ class SemanticAnalyzer:
             
         # EQUALITY OPERATORS
         elif root.value in {NT.EQUAL, NT.NOT_EQUAL}:
+            """
             if root.parameters[0].expression_type != ET.BOOL:
                 raise_type_error(root.parameters[0].token_source)
             elif root.parameters[1].expression_type != ET.BOOL:
@@ -97,7 +98,7 @@ class SemanticAnalyzer:
                 raise_type_error(root.parameters[0].token_source)
             else:
                 root.expression_type = ET.BOOL
-            """
+
 
         # RELATIONAL OPERATORS      
         elif root.value in {NT.LESS, NT.MORE, NT.LESS_EQUAL, NT.MORE_EQUAL}:
@@ -125,7 +126,7 @@ class SemanticAnalyzer:
         elif root.value in {NT.IF, NT.ELIF}:
             if root.parameters[0].expression_type != ET.BOOL:
                 raise_type_error(root.parameters[0].token_source)
-                
+
         # FOR LOOP
         elif root.value == NT.FOR:
             if root.parameters[1].expression_type != ET.BOOL:

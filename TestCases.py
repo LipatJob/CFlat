@@ -176,7 +176,7 @@ class TestLexicalAnalyzer(CompilerTestCase):
 
 
 class TestWorking(CompilerTestCase):
-    @skip("Test case disabled")
+    #@skip("Test case disabled")
     @patch("builtins.input")
     def test_working(self, mocked_input):
         filenames = glob.glob(
