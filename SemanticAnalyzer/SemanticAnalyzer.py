@@ -125,11 +125,7 @@ class SemanticAnalyzer:
         elif root.value in {NT.IF, NT.ELIF}:
             if root.parameters[0].expression_type != ET.BOOL:
                 raise_type_error(root.parameters[0].token_source)
-            # elif root.parameters[0].parameters[0].expression_type != ET.BOOL:
-            #     raise_type_error(root.parameters[0].parameters[0].token_source)
-            # elif root.parameters[0].parameters[1].expression_type != ET.BOOL:
-            #     raise_type_error(root.parameters[0].parameters[1].token_source)
-
+                
         # FOR LOOP
         elif root.value == NT.FOR:
             if root.parameters[1].expression_type != ET.BOOL:
