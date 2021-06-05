@@ -1,30 +1,7 @@
-bool a = True and False or not (False and True);
-int b = 123;
-
-if(True)
-{
-    print("int if");
+int grade = 100;
+if(grade > 60){
+    print("Passed");
 }
-elif(True)
-{
-    print("in elif");
-}
-elif(True)
-{
-    print("in elif");
-}
-else
-{
-    print("In else");
-}
-
-for(int c = 0; c < 5; set c = c + 1){
-    print("In for loop");
-}
-
-set b = 0;
-
-while(b < 10){
-    print("In while loop");
-    set b = b + 1;
+else{
+    print("Failed :(");
 }

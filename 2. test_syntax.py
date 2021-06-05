@@ -5,7 +5,7 @@ import Lib.OutputFormatter as Oformatter
 lexer = LexicalAnalyzer()
 parser = SyntaxAnalyzer()
 
-file_name = "program.cf"
+file_name = "syntax_program.cf"
 
 tokens = lexer.run(file_name)
 tree = parser.run(tokens)

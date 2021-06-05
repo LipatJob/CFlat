@@ -1,0 +1,9 @@
+/*TEST
+>>Input:
+>>Output:
+91
+>>Description:
+*/
+// Test arithmetic operators precedence
+int x = 7 * 9 + 2 + 4 * 6 - (- 8 / 4);
+print(x);
